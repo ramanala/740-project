@@ -4,16 +4,16 @@ msc {
 
  a [label="Twilio Client 'Mike'"],b [label="Twilio Server"], c [label="Application Server"], d [label="Twilio Client 'Jenny'"];
 
- a=>>b [label="Capabilities for Twilio Number ### as Mike", arcskip="1"];
- d=>>b [label="Capabilities for Twilio Number ### as Jenny", arcskip="1"];
+ a=>b [label="Register Capabilities for Twilio Number ### as Mike", arcskip="1"];
+ d=>b [label="Register Capabilities for Twilio Number ### as Jenny", arcskip="1"];
  |||;
  b=>>a [label="ACK + Response", arcskip="1"];
  b=>>d [label="ACK + Response", arcskip="1"];
- a=>>b [label="Call Jenny", arcskip="1"];
+ a=>b [label="Call Jenny", arcskip="1"];
  |||;
  b=>>b [label="Trigger Incoming Call on ASID", arcskip="1"];	
  |||;
- b=>>c [label="Fetch TwiML", arcskip="1"];
+ b=>c [label="Fetch TwiML", arcskip="1"];
  |||;
  c=>>b [label="TwiML Response with <Dial>Jenny</Dial>", arcskip="1"];
  |||;
