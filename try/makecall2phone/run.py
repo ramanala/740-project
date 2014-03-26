@@ -7,18 +7,20 @@ import re
 app = Flask(__name__)
  
 # Add a Twilio phone number or number verified with Twilio as the caller ID
-caller_id = "+17074079806"
+caller_id = "+17078404769"
  
 # put your default Twilio Client name here, for when a phone number isn't given
 default_client = "jenny"
  
 @app.route('/voice', methods=['GET', 'POST'])
 def voice():
+    if request is not None:
+        with open('/tmp/f','a') as fip:
+            fip.write(request.remote_addr)
+
     dest_number = request.values.get('PhoneNumber', None)
- 
     resp = twilio.twiml.Response()
  
-    print resp
     with resp.dial(callerId=caller_id) as r: 
         # If we have a number, and it looks like a phone number:
         if dest_number and re.search('^[\d\(\)\- \+]+$', dest_number):

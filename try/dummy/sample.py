@@ -16,5 +16,3 @@ dt2 = datetime.now()
 
 print dt1
 print dt2
-#for call in calls:
-	#print call.sid + '--' + call.status
