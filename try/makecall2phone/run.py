@@ -45,6 +45,6 @@ def client():
     token = capability.generate()
  
     return render_template('client.html', token=token)
- 
+
 if __name__ == "__main__":
     app.run(debug=True)

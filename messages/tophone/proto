@@ -1,0 +1,14 @@
+# Fictional client-server protocol
+msc {
+ hscale = "2";
+
+ a [label="Twilio Desktop Application"],b [label="Twilio Server"], c [label="Media server"], d [label="Phone"];
+
+ a=>b [label="Queue Message", arcskip="1"];
+ b=>>a [label="Async. ACK", arcskip="1"];
+ b=>>c [label="Fetch Media", arcskip="1"];
+ c=>b [label="Media content", arcskip="1"];
+ |||;
+ b=>d [label="Send Message", arcskip="1"];
+ |||;
+ }

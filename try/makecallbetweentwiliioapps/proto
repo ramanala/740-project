@@ -19,6 +19,6 @@ msc {
  |||;
  b=>>d [label="Parse TwiML & Place Call to Jenny's browser", arcskip="1"];
  b=>>a [label="Handover Call to Mike's browser", arcskip="1"];
- a=>>d [label="Actual Communication Starts", arcskip="1"];
+ a>>d [label="Actual Communication Starts", arcskip="1"];
  |||;
 }
