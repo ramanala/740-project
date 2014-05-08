@@ -22,24 +22,11 @@ tostring2 = "+17074079806"
 message = client.messages.create(to=tostring1,  # Any phone number
 	                           from_ = "+16082345103",
 	                           media="https://demo.twilio.com/owl.png",
+	                           StatusCallback="http://flask-twilioproject740.rhcloud.com/statuscallback",
 	                           body=body) # Must be a valid Twilio number)
 
 utc_datetime1 = datetime.utcnow()
+
 print 'Placed msg 1:' + str(utc_datetime1)
-for i in range(int(sys.argv[2]) - 2):
-	message = client.messages.create(to=tostring2,  # Any phone number
-		                           from_ = "+16082345103",
-		                           media="https://demo.twilio.com/owl.png",
-		                           body=body) # Must be a valid Twilio number)
-
-print 'Placed next ' + str(int(sys.argv[2]) -2) + ' msgs'
-
-message = client.messages.create(to=tostring1,  # Any phone number
-	                           from_ = "+16082345103",
-	                           media="https://demo.twilio.com/owl.png",
-	                           body=body) # Must be a valid Twilio number)
-
-utc_datetime2 = datetime.utcnow()
-print 'Placed msg 2:' + str(utc_datetime2)
 
 print 'Done'

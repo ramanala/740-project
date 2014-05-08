@@ -7,7 +7,7 @@ import re
 app = Flask(__name__)
  
 # Add a Twilio phone number or number verified with Twilio as the caller ID
-caller_id = "+17078404769"
+caller_id = "+16082345103"
  
 # put your default Twilio Client name here, for when a phone number isn't given
 default_client = "jenny"
@@ -35,12 +35,12 @@ def client():
     """Respond to incoming requests."""
  
     # Find these values at twilio.com/user/account
-    account_sid = "AC7a090d2892a567f91425856c9aa662ec"
-    auth_token = "935d7ee7ce7bca2061795d7d3374b189"
+    account_sid = "AC3d6188091a9109165c89ae83c5d94d1b"
+    auth_token = "7a0007278ebe72b311ca4d476c7a6abc"
  
     capability = TwilioCapability(account_sid, auth_token)
  
-    application_sid = "APa102e77aab1e5e82ccd8fb9d0733f533" # Twilio Application Sid
+    application_sid = "APcdc54402e77bd0aa98ab42bd5d045f89" # Twilio Application Sid
     capability.allow_client_outgoing(application_sid)
     token = capability.generate()
  

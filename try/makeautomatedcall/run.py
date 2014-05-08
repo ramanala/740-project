@@ -9,41 +9,42 @@ from datetime import datetime
 
 
 # Get these credentials from http://twilio.com/user/account
-account_sid = "AC7a090d2892a567f91425856c9aa662ec"
-auth_token = "935d7ee7ce7bca2061795d7d3374b189"
+account_sid = "AC3d6188091a9109165c89ae83c5d94d1b"
+auth_token = "7a0007278ebe72b311ca4d476c7a6abc"
 client = TwilioRestClient(account_sid, auth_token)
  
 # Make the call
 
 
-tostring1 = "client:ram"
+tostring1 = "client:bamboo"
 tostring2 = "7074079806"
 
 
-utc_datetime1 = datetime.utcnow()
+
 call1 = client.calls.create(to=tostring1,  # Any phone number
-                           from_ = "+17078404769",
-                           url = "http://pages.cs.wisc.edu/~ra/TwimlLibrary/GenericWelcome.xml",
-                           method="GET") # Must be a valid Twilio number)
+                           from_ = "+16082345103",
+                           url = "http://flask-twilioproject740.rhcloud.com/default",
+                           method="GET") # Must be a vsalid Twilio number)
+utc_datetime1 = datetime.utcnow()
 
-print "Placed call 1"
+print "Placed call 1::"+str(utc_datetime1)
 
-for i in range(1000):
+'''
+for i in range(498):
 	call2 = client.calls.create(to=tostring2,  # Any phone number
-                           from_ = "+17078404769",
+                           from_ = "+16082345103",
                            url = "http://pages.cs.wisc.edu/~ra/TwimlLibrary/GenericWelcome.xml",
                            method="GET") # Must be a valid Twilio number)
+print 'Placed next 298 calls'
 
 
-print 'Placed next 1000 calls'
-
-utc_datetime2 = datetime.utcnow()
 call3 = client.calls.create(to=tostring1,  # Any phone number
-                           from_ = "+17078404769",
+                           from_ = "+16082345103",
                            url = "http://pages.cs.wisc.edu/~ra/TwimlLibrary/GenericWelcome.xml",
                            method="GET") # Must be a valid Twilio number)
+utc_datetime2 = datetime.utcnow()
 
-print 'Placed 101st call to ram'
+print "Placed call 2::"+str(utc_datetime2)
+'''
 
-print 'Time just before queuing call-1:' + str(utc_datetime1)
-print 'Time just before queuing call-101:' + str(utc_datetime2)
+print 'Done'

@@ -3,8 +3,8 @@ from datetime import datetime
 from twilio.rest import TwilioRestClient
  
 # Your Account Sid and Auth Token from twilio.com/user/account
-account_sid = "AC7a090d2892a567f91425856c9aa662ec"
-auth_token = "935d7ee7ce7bca2061795d7d3374b189"
+account_sid = "AC3d6188091a9109165c89ae83c5d94d1b"
+auth_token = "7a0007278ebe72b311ca4d476c7a6abc"
 client = TwilioRestClient(account_sid, auth_token)
  
 dt1 = datetime.now()
