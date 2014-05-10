@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2013.12.14)  10 MAY 2014 14:04
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2013.12.14)  10 MAY 2014 15:12
 entering extended mode
  %&-line parsing enabled.
 **main
@@ -308,7 +308,11 @@ Package: enumitem 2009/05/18 v2.2 Customized lists
 )
 \tmpa=\skip47
 \tempa=\skip48
- (./main.aux)
+ (./main.aux
+
+LaTeX Warning: Label `fig-calls' multiply defined.
+
+)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 33.
@@ -326,8 +330,7 @@ LaTeX Font Info:    ... okay on input line 33.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 33.
 LaTeX Font Info:    ... okay on input line 33.
 LaTeX Font Info:    Try loading font information for OT1+ptm on input line 33.
-
-(/usr/share/texmf-texlive/tex/latex/psnfss/ot1ptm.fd
+ (/usr/share/texmf-texlive/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 (/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
@@ -399,36 +402,109 @@ Underfull \hbox (badness 2762) in paragraph at lines 1--1
 []\OT1/ptm/b/n/14.4 Twilio Ecosys-tem and Pro-to-col
  []
 
-) (./measurements.tex) (./oddities.tex) (./discussion.tex)
-(./futureandconclusion.tex) [2
+) (./measurements.tex
+Underfull \hbox (badness 2547) in paragraph at lines 4--5
+\OT1/ptm/m/n/10 pro-vides guar-an-tees that the places calls and mes-
+ []
 
-] (./bib.tex (./main.bbl
+
+Underfull \hbox (badness 1163) in paragraph at lines 4--5
+\OT1/ptm/m/n/10 sages will be de-queued at a rate of 1 per sec and
+ []
+
+
+Underfull \hbox (badness 5939) in paragraph at lines 4--5
+\OT1/ptm/m/n/10 placed on to the phones or the browser clients
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4--5
+\OT1/ptm/m/n/10 [https://www.twilio.com/help/faq/twilio-basics/what-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 4--5
+\OT1/ptm/m/n/10 are-the-limits-on-outbound-calls-and-sms-messages-per-
+ []
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 6.
+<graphs/calls.pdf, id=52, 420.57124pt x 259.97125pt>
+File: graphs/calls.pdf Graphic file (type pdf)
+ <use graphs/calls.pdf>
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 14.
+
+
+LaTeX Warning: Reference `fig:fig-calls' on page 2 undefined on input line 17.
+
+! Undefined control sequence.
+l.17 ...does not necessarily imply that the \texit
+                                                  {Twilio} server has a thro...
+
+? 
+! Undefined control sequence.
+l.17 ... small number of calls such as 100, \texit
+                                                  {Twilio} dequeuing mechani...
+
+? 
+! Undefined control sequence.
+l.23 ... the dequeue rate by looking at the \texit
+                                                  {sent timestamp} in the me...
+
+? 
+<graphs/sms.pdf, id=54, 370.38374pt x 247.92625pt>
+File: graphs/sms.pdf Graphic file (type pdf)
+ <use graphs/sms.pdf>
+
+LaTeX Warning: Reference `fig:fig-calls' on page 2 undefined on input line 32.
+
+! Undefined control sequence.
+l.32 ... per second. As mentioned earlier in \sref
+                                                  {sec-measurements-calls}, ...
+
+? 
+! Undefined control sequence.
+l.32 ...rops as the message size increases. \texit
+                                                  {Twilio} treats a single m...
+
+? 
+) (./oddities.tex) (./discussion.tex) (./futureandconclusion.tex)
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [2]
+[3
+
+] [4 <./graphs/calls.pdf> <./graphs/sms.pdf>] (./bib.tex (./main.bbl
 
 LaTeX Warning: Empty `thebibliography' environment on input line 3.
 
-)) [3
+)) [5
 
 
 ] (./main.aux)
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 6926 strings out of 495061
- 99977 string characters out of 1182620
- 182288 words of memory out of 3000000
- 9930 multiletter control sequences out of 15000+50000
- 18192 words of font info for 47 fonts, out of 3000000 for 9000
+ 6959 strings out of 495061
+ 100426 string characters out of 1182620
+ 182533 words of memory out of 3000000
+ 9951 multiletter control sequences out of 15000+50000
+ 23128 words of font info for 53 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 38i,7n,36p,1226b,365s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 38i,7n,36p,1226b,374s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-texli
 ve/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw
 /times/utmb8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmr8a.pfb></
 usr/share/texmf-texlive/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (3 pages, 59923 bytes).
+Output written on main.pdf (5 pages, 97945 bytes).
 PDF statistics:
- 73 PDF objects out of 1000 (max. 8388607)
- 13 named destinations out of 1000 (max. 500000)
- 65 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 110 PDF objects out of 1000 (max. 8388607)
+ 19 named destinations out of 1000 (max. 500000)
+ 91 words of extra memory for PDF output out of 10000 (max. 10000000)
 

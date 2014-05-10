@@ -3,6 +3,8 @@
 \BOOKMARK [1][-]{section.3}{Motivation and Related Work}{}
 \BOOKMARK [1][-]{section.4}{Twilio Ecosystem and Protocol Study}{}
 \BOOKMARK [1][-]{section.5}{Measurements}{}
+\BOOKMARK [2][-]{subsection.5.1}{Calls}{section.5}
+\BOOKMARK [2][-]{subsection.5.2}{Messages}{section.5}
 \BOOKMARK [1][-]{section.6}{Oddities}{}
 \BOOKMARK [1][-]{section.7}{Discussion}{}
 \BOOKMARK [1][-]{section.8}{Future Work and Conclusions}{}
