@@ -2,7 +2,7 @@ This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
 The top-level auxiliary file: main.aux
 The style file: plain.bst
 I couldn't open database file all-defs.bib
----line 21 of file main.aux
+---line 36 of file main.aux
  : \bibdata{all-defs
  :                  ,all,local,local-vijay,personal,prev,all-confs}
 I'm skipping whatever remains of this command

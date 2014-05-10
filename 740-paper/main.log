@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2013.12.14)  10 MAY 2014 12:49
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2013.12.14)  10 MAY 2014 13:01
 entering extended mode
  %&-line parsing enabled.
 **main
@@ -308,11 +308,7 @@ Package: enumitem 2009/05/18 v2.2 Customized lists
 )
 \tmpa=\skip47
 \tempa=\skip48
- (./main.aux
-
-LaTeX Warning: Label `sec-intro' multiply defined.
-
-)
+ (./main.aux)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 33.
@@ -330,7 +326,8 @@ LaTeX Font Info:    ... okay on input line 33.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 33.
 LaTeX Font Info:    ... okay on input line 33.
 LaTeX Font Info:    Try loading font information for OT1+ptm on input line 33.
- (/usr/share/texmf-texlive/tex/latex/psnfss/ot1ptm.fd
+
+(/usr/share/texmf-texlive/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 (/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
@@ -380,37 +377,11 @@ File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 ) (./abstract.tex
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1.
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 4.
-
-
-LaTeX Warning: Citation `wikicc' on page 1 undefined on input line 4.
-
-! Misplaced alignment tab character &.
-l.5 Cloud communications providers deliver voice &
-                                                   data communications appli...
-
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 4--6
-\OT1/ptm/m/n/10 Cloud com-mu-ni-ca-tion ser-vices are Internet-based
- []
-
-) (./intro.tex
-
-LaTeX Warning: Citation `wikicc' on page 1 undefined on input line 4.
-
-! Misplaced alignment tab character &.
-l.5 Cloud communications providers deliver voice &
-                                                   data communications appli...
-
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 4--6
-\OT1/ptm/m/n/10 Cloud com-mu-ni-ca-tion ser-vices are Internet-based
- []
-
-) [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+)
+(./intro.tex) (./motivation.tex) (./related.tex) (./twilioeco.tex)
+(./protocolstudy.tex) (./measurements.tex) (./oddities.tex) (./discussion.tex)
+(./futureandconclusion.tex) [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
+p}
 
 
 
@@ -421,28 +392,22 @@ LaTeX Warning: Empty `thebibliography' environment on input line 3.
 )) [2
 
 
-] (./main.aux)
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: There were multiply-defined labels.
-
- ) 
+] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 6890 strings out of 495061
- 99393 string characters out of 1182620
- 171032 words of memory out of 3000000
- 9920 multiletter control sequences out of 15000+50000
- 18134 words of font info for 47 fonts, out of 3000000 for 9000
+ 6934 strings out of 495061
+ 99992 string characters out of 1182620
+ 169330 words of memory out of 3000000
+ 9933 multiletter control sequences out of 15000+50000
+ 16508 words of font info for 45 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 38i,7n,36p,449b,365s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-texli
-ve/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw
-/times/utmb8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmr8a.pfb>
-Output written on main.pdf (2 pages, 36881 bytes).
+ 38i,7n,36p,266b,359s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</usr/sha
+re/texmf-texlive/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texmf-texlive/f
+onts/type1/urw/times/utmb8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times
+/utmr8a.pfb>
+Output written on main.pdf (2 pages, 40122 bytes).
 PDF statistics:
- 38 PDF objects out of 1000 (max. 8388607)
- 6 named destinations out of 1000 (max. 500000)
- 17 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 73 PDF objects out of 1000 (max. 8388607)
+ 14 named destinations out of 1000 (max. 500000)
+ 81 words of extra memory for PDF output out of 10000 (max. 10000000)
 
