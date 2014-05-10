@@ -1,0 +1,9 @@
+\begin{tabular}{|l|r|r|r|r|r|r|r|r|}
+\hline
+ & \multicolumn{2}{c}{Total Ordering and Global Sync} & \multicolumn{2}{c}{Global Barriers and Global Sync} & \multicolumn{2}{c}{File Barriers and Fsync}&\multicolumn{2}{c}{Explicit Ordering and Fsync\_region} \\ \hline
+ & Ordering calls & Sync calls & Ordering calls & Sync calls & Ordering calls & Sync calls & Ordering calls & Sync calls \\ \hline
+Git & 0 & 2 & 2 & 2 & 12 & 2 & 18 & 2 \\ \hline
+BerkeleyDB & 0 & 1 & 1 & 1 & 6 & 1 & 15 & 1 \\ \hline
+Mercurial & 0 & 1 & 5 & 1 & 13 & 1 & 13 & 1 \\ \hline
+LMDB & 0 & 1 & 1 & 1 & 1 & 1 & 2 & 1 \\ \hline
+\end{tabular}
