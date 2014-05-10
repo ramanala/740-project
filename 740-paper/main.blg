@@ -2,15 +2,15 @@ This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
 The top-level auxiliary file: main.aux
 The style file: plain.bst
 I couldn't open database file all-defs.bib
----line 36 of file main.aux
+---line 31 of file main.aux
  : \bibdata{all-defs
  :                  ,all,local,local-vijay,personal,prev,all-confs}
 I'm skipping whatever remains of this command
+I found no \citation commands---while reading file main.aux
 I found no database files---while reading file main.aux
-Warning--I didn't find a database entry for "wikicc"
 You've used 0 entries,
             2118 wiz_defined-function locations,
-            498 strings with 3995 characters,
+            497 strings with 3989 characters,
 and the built_in function-call counts, 18 in all, are:
 = -- 0
 > -- 0
@@ -49,4 +49,4 @@ warning$ -- 0
 while$ -- 0
 width$ -- 0
 write$ -- 2
-(There were 2 error messages)
+(There were 3 error messages)

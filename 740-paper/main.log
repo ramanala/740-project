@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2013.12.14)  10 MAY 2014 13:07
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2013.12.14)  10 MAY 2014 14:04
 entering extended mode
  %&-line parsing enabled.
 **main
@@ -378,22 +378,35 @@ File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 1.
 )
-(./intro.tex) (./motivationandrelated.tex) (./twilioecoandprotocolstudy.tex
+(./intro.tex
+! Undefined control sequence.
+l.5 ...sting took just two developer-weeks. \texit
+                                                  {Twilio} also provides ric...
+
+? 
+) (./motivationandrelated.tex
+! Undefined control sequence.
+l.4 ... lot of studies on VOIP service like \texit
+                                                  {Skype} in the past [1,2]....
+
+? 
+) (./twilioecoandprotocolstudy.tex [1{/var/lib/texmf/fonts/map/pdftex/updmap/pd
+ftex.map}
+
+
+]
 Underfull \hbox (badness 2762) in paragraph at lines 1--1
 []\OT1/ptm/b/n/14.4 Twilio Ecosys-tem and Pro-to-col
  []
 
 ) (./measurements.tex) (./oddities.tex) (./discussion.tex)
-(./futureandconclusion.tex) [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.ma
-p}
-
-
+(./futureandconclusion.tex) [2
 
 ] (./bib.tex (./main.bbl
 
 LaTeX Warning: Empty `thebibliography' environment on input line 3.
 
-)) [2
+)) [3
 
 
 ] (./main.aux)
@@ -402,25 +415,20 @@ LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 6930 strings out of 495061
- 100047 string characters out of 1182620
- 168330 words of memory out of 3000000
- 9935 multiletter control sequences out of 15000+50000
- 16508 words of font info for 45 fonts, out of 3000000 for 9000
+ 6926 strings out of 495061
+ 99977 string characters out of 1182620
+ 182288 words of memory out of 3000000
+ 9930 multiletter control sequences out of 15000+50000
+ 18192 words of font info for 47 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 38i,7n,36p,266b,359s stack positions out of 5000i,500n,10000p,200000b,50000s
-pdfTeX warning (dest): name{section.10} has been referenced but does not exis
-t, replaced by a fixed one
-
-pdfTeX warning (dest): name{section.9} has been referenced but does not exist, 
-replaced by a fixed one
-
-{/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-texlive
-/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/t
-imes/utmb8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmr8a.pfb>
-Output written on main.pdf (2 pages, 39917 bytes).
+ 38i,7n,36p,1226b,365s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-texli
+ve/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw
+/times/utmb8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmr8a.pfb></
+usr/share/texmf-texlive/fonts/type1/urw/times/utmri8a.pfb>
+Output written on main.pdf (3 pages, 59923 bytes).
 PDF statistics:
  73 PDF objects out of 1000 (max. 8388607)
- 14 named destinations out of 1000 (max. 500000)
- 81 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 13 named destinations out of 1000 (max. 500000)
+ 65 words of extra memory for PDF output out of 10000 (max. 10000000)
 
