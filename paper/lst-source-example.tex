@@ -1,8 +1,0 @@
-\begin{lstlisting}[float=t, caption = {\textbf{Vulnerable Source Lines.}\textit{\footnotesize The listing shows how the same vulnerable source code line can lead to multiple vulnerable system calls. Multiple append calls are generated in the loop, all of which must be persisted before the write.}}, label = {static-vulnerabilities-example}, escapechar=!]
-
-1 define Put(key_value_pair):
-2    for each block in key_value_pair:
-3        append(log, block)
-4    write(log_header, timestamp)
-\end{lstlisting}
-

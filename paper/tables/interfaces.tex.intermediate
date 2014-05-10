@@ -1,8 +1,0 @@
-\begin{tabular}{|l|r|r|r|r|r|r|r|r|}
-\hline
- & \multicolumn{ 2}{l|}{\parbox[c]{ 2\cellwidth}{\centering Total Ordering and Global Sync}} & \multicolumn{ 2}{l|}{\parbox[c]{ 2\cellwidth}{\centering Global Barriers and Global Sync}} & \multicolumn{1}{l|}{File Barriers and Fsync} & \multicolumn{1}{l|}{} & \multicolumn{ 2}{l|}{\parbox[c]{ 2\cellwidth}{\centering Explicit Ordering and Fsync\_region}} \\ \hline
- & \multicolumn{1}{l|}{Ordering calls} & \multicolumn{1}{l|}{Sync calls} & \multicolumn{1}{l|}{Ordering calls} & \multicolumn{1}{l|}{Sync calls} & \multicolumn{1}{l|}{Ordering calls} & \multicolumn{1}{l|}{Sync calls} & \multicolumn{1}{l|}{Ordering calls} & \multicolumn{1}{l|}{Sync calls} \\ \hline
-Git & 0 & 2 & 2 & 2 & 12 & 2 & 18 & 2 \\ \hline
-BerkeleyDB & 0 & 1 & 1 & 1 & 6 & 1 & 15 & 1 \\ \hline
-Mercurial & 0 & 1 & 5 & 1 & 13 & 1 & 13 & 1 \\ \hline
-\end{tabular}
