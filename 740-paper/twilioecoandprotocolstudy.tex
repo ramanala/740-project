@@ -41,3 +41,32 @@ For e.g. The TwiML snippet shown in Figure~\ref{fig:TwilML} will say Hello World
 \caption{Sample TwiML Snippet}
 \label{fig:TwilML}
 \end{figure} 
+
+\subsection{Scenarios}
+
+There are multiple scenarios possible with the help of Twilio Apis. It include:
+
+\begin{itemize}
+\item Automated Calls
+\item Voice Calls
+\begin{itemize}
+\item Phone to VoIP Client
+\item VoIP Client to Phone
+\item VoIP Client to VoIP Client
+\end{itemize}
+\item Messages
+\end{itemize}
+
+\subsection{Experimental Setup}
+
+We developed a simple VoIP service called VoT atop Twilio and deployed it in OpenShift RedHat Cloud. The VoT server also hosts a website which is used to place voice calls. For making automated calls and sending automated messages we have developed some python scripts which directly calls into the Twilio APIs. For our study we extensively use traces collected at different places. This includes application level trace messages in VoT, logs in Twilio user portal, Twilio object store queries and wireshark traces in client machines.
+
+\subsection{Protocol Study}
+
+\begin{figure*}[t!] 
+\centering
+%\begin{minipage}{.45\textwidth}
+  \includegraphics[width=\textwidth]{figs/auto.pdf}
+\caption{Sample TwiML Snippet}
+\label{fig:TwilML}
+\end{figure*} 
