@@ -1,0 +1,24 @@
+Timeline
+=======
+First file system - atomic, synchronous, ordered
+Too slow.
+First optimization, buffering.
+    - ext2 (1992)
+Caused inconsistency.
+Solution 1: synchronous metadata updates
+    - FFS (84), DOS(88), VMS (90), 
+Curious that ext2 came after this, did not use synchronous metadata updates.
+    - because it was too slow!
+    - ext2 (1992)
+Solution 2: techniques like shadow paging or WAL
+    - techniques: Cedar (87), Episode (92), Mime (92), LFS(92), WAFL (94)
+    - journaling - ext3 (98)
+Performance is a relentless driver. More optimizations.   
+XFS (jan 2001)
+- delayed allocation (mar 2004)    
+- rename, trunc fixes (june 2006)
+ext4 (2008)
+- delayed allocation (Oct 2008)
+- rename, trunc fixes (June 2009) 
+Btrfs (2009)    
+- Has delayed allocation, rename handling etc from the start

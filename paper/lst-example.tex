@@ -1,0 +1,23 @@
+\begin{lstlisting}[float=t, caption = {\textbf{Example application.}
+\textit{\footnotesize The
+listing shows the update protocol for an imaginary application.
+}}, label = {lst-example}, escapechar=!]
+
+!\vspace{-0.2in}!
+# File overwrite
+1 write(log, "new") 
+
+!\vspace{-0.2in}!
+# New file create 
+2 creat(doc)
+
+!\vspace{-0.2in}!
+# Append to the new file
+3 write(doc, "data")
+
+!\vspace{-0.2in}!
+# File rename
+4 rename("n.old", "n.new")
+
+\end{lstlisting}
+

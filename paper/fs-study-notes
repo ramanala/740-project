@@ -1,0 +1,110 @@
+How should I open with this?
+
+There are some fairly obvious things here.
+- need to explain about application vulnerability categories
+    - How do I make this uniform with section 3?
+- need to explain about failure categories
+
+Lets just write the non-cool version, and we can iterate on that.
+- DON
+
+- intro
+    - What to stress here:
+        - we know the protocol
+        - our framework allows us to directly co-relate vulnerabilities with
+          the application code and the application source code line. 
+
+- Case studies: Git Protocol
+- Potentially other stuff too.
+- I need to show an example of how we find a vulnerability, explain it, show it
+  in the system call trace, and then connect it to the actual source code line.
+- This will probably take up space and time.
+
+Ok, we can make section 6 really cool!
+
+- I had no idea about the "educational" usefulness of our tool till now.
+
+"CrashX: a tool to understand application persistence protocols and to find
+vulnerabilities in them."  
+
+Thanu about the tool:
+
+"Each of the protocols is easy to understand intuitively (except HSqlDB) after
+our tool discovers the orderings. And this understanding goes beyond "there are
+five orderings": it shows everything from the basic protocol used, to things
+like how people use fsync and O_SYNC on the same file; how people use "link"
+calls to achieve a rename-like effect; how people might unlink an updated file
+before renaming it. The understanding obtained is useful for FS
+implementers/designers. Any custom-file-system-model hypothesis that I think of
+now, I think because I understand the protocols intuitively at this level.
+
+This is a direct consequence of our tool ... without the tool, the only way to
+get this info would be to ask the application developer to explain the
+(unfiltered) strace. And I don't think they will be able to explain it either,
+if the application is using multiple libraries in its update protocol. So, if
+there is some way of showing it off in the paper, it will sound nice. On
+the other hand, it will be hard to convince the reader that this
+information is a nice thing we get from our tool. Hence the confusion."
+
+- Ok, I can see our representation helps, but not sure how much our tools has a
+  part to play in this. The tool just figures out the dependencies - the
+  semantic meaning attached to the system calls is done by us manually. 
+
+Things that we want to show in this section:
+- How protocols are really complex (case study: git)
+- We visually show a protocol, and explain the significance of the different
+  aspects of it
+- We should probably connect this to source code lines well. Then it would be
+  a complete loop.
+
+The more I think about it, the more the pictorial representation seems
+stand-alone, and having a lot of expository value. It should probably come
+earlier in the paper.
+
+Experience
+==========
+1. Layering is bad:
+    - triple fsync 
+    - unlink/rename in hsqldb
+    - due to layering or third party libraries
+    - For example, HSqlDB has custom code to store its log files and the actual
+        data, which it uses in tandem with the Java properties class.
+
+2. Using O_SYNC for metadata updates
+    - Due to cost of fsync
+    - Multiple threads have the same file open.
+    - Seen in ldmb, vmware 
+
+3. mmap() workaround for append
+    - empty file
+    - truncate to large size Y
+    - write till X, X < Y
+    - truncate to X
+
+4. Note: the smaller the time window, the more likely the bug exists.
+
+5. Some applications use multiple directories (Git, Mercurial, Postgres). This
+will throw off per-directory assumptions in the file system.
+
+6. Seq access is not 100% sequential.
+7. Multiple threads do I/O in only 2 applications.
+
+8. General techniques used by applications in their protocols:
+- Logging: Git, Mercurial, LevelDB, BerkeleyDB, SQLite, Postgres
+- Atomic rename: HSqlDB
+- COW: LMDB
+- Update-in-place: VMWare, GDBM 
+- Applications usually use a single technique to preserve the consistency of each piece of data. Only HSqlDB uses two, un-necessarily. 
+
+
+
+Study Setup
+===========
+- Mention how rigorous the study is: - we try our best to apply all recovery
+mechanisms (verify_checksums, repairDB()) before we run the application. This
+is much more than what a normal user would do. Another example is deleting lock files, etc.
+- The invariants are obtained from documentation if they are clearly specified.
+Otherwise we assume a set of reasonable invariants appropriate to each
+application.  
+- For many applications, we needed to write complex workloads to trigger operations such as compaction or checkpointing. 
+- For some applications, the given checkers are not enough. We needed to write our own.

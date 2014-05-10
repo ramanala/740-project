@@ -1,0 +1,88 @@
+\section{Evaluation}
+We evaluated \toolname\ on a total of 12 widely used applications. The
+applications are representative of different domains. The applications vary in
+their level of maturity, ranging from decade-old applications to applications a
+few years old. We tested 2 version control systems, 5 key-value stores, 3
+relational databases, a virtualization software, and a distributed file system.
+For applications that had configuration options which changed the update
+protocol significantly, we tested each configuration separately. We tested
+different versions of LevelDB since the update protocol changed significantly
+between them. In this manner, we test a total of 35 configurations across
+applications. 
+
+All applications were tested on a Intel Core i7 quad-core machine with 8 GB of
+RAM running Linux kernel 3.8. Crash states were constructed and tested
+entirely in-memory. We tested one application at a time, using up-to 8 threads
+for testing crash states. 
+
+This section answers the following questions:
+\begin{enumerate}
+\item Is \toolname\ useful for finding application crash vulnerabilities?
+(\sref{sec-report})
+\item How long does \toolname\ take to check applications?
+(\sref{sec-runningtime})
+\end{enumerate}
+
+\subsection{Vulnerabilities Found}
+\label{sec-report}
+\input{tbl-vul-summary} 
+
+We tested 12 applications using \toolname. Most of the applications could be
+configured in different ways, optimizing for performance or safety. We tested
+different configurations of the 12 applications (35 configurations in total).
+Since application invariants varied across configurations (e.g., the async mode
+of LevelDB does not guarantee that the put is durable), we only report
+vulnerabilities that violated the specific invariants of that configuration. 
+
+\toolname\ found 168 vulnerable system calls across the 12 applications we
+tested. \toolname\ found vulnerabilities in every application that we tested,
+including applications like Git, Mercurial, and LevelDB that are used by
+millions of developers across the world.  Table~\ref{tbl-vul-summary} lists the
+applications tested, their domains, and the three representations for the
+vulnerabilities that were found. We observe that for most applications, a
+fairly small number of vulnerable system calls lead to a large number of
+vulnerable crash states. For all the applications, all detected vulnerabilities
+can be fixed by modifying code at a few locations. We analyze the
+vulnerabilities in more detail in Section~\ref{sec-vul-study}. 
+
+\subsection{Performance}
+\label{sec-runningtime}
+
+\input{tbl-vul-time}
+
+Table~\ref{tbl-vul-time} shows the time taken by \toolname\ to test different
+applications. The total time taken depends on the number of crash states that
+are tested and the time taken to check one crash state. The total time varies
+between a few minutes for small applications like LMDB to around 10 days for
+large applications like Postgres.
+
+The number of crash states for a given application workload depends upon the
+number of file-system related system calls and the number of sync calls in the
+workload. Each system call introduces a number of intermediate states. The sync
+calls introduce dependencies and hence rule out certain crash states.
+
+The time taken to check one crash state depends on the time taken to start each
+application, and run application invariant verifiers. For heavyweight
+applications like Postgres, startup time is several seconds, bottlenecking
+the whole checking process.
+
+\toolname\ is highly \textbf{parallelizable}: since checking one crash state is
+completely independent from other tasks, testing all the crash states for an
+application can be done using a cluster of machines. This allows \toolname\ to
+scale to checking large applications such as Postgres and HDFS.
+
+% just number of sys calls not enough
+% size of the write calls etc is important.
+
+% checker time also signfiicant. 
+% HDFS runs in parallel (4 machines).
+
+
+% table of application workloads, system calls, and time taken.
+
+% How big a trace can \toolname\ handle? \\
+% What is the limiting factor here? \\
+% fsync \\
+% table of system calls and fsyncs would be useful here. \\
+
+

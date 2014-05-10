@@ -1,0 +1,49 @@
+\begin{table*}[ht]
+\begin{center}
+\begin{tabular}{c|c|c|c|c|c|c|c|c|c}
+{\multirow{3}{*}{\bf FS}} & {\multirow{3}{*}{\bf Mount options}} &
+\multicolumn{8}{c}{\bf Assumption}  \\
+\cline{3-10}
+%o\muFile System  & Mount Options  & \multicolumn{4}{|c}{Property}  &   \\
+            &    & \multicolumn{4}{c|}{\it \small Ordering}  & \multicolumn{2}{c|}{\it \small Write
+ Atomicity} & \multirow{2}{1.2cm}{\it \small Syscall Atomicity} &
+ \multirow{2}{1.2cm}{\it \small Create Durability}   \\
+\cline{3-8}
+%    FS     &       options                                 & W to W    & W to D    & D to W    & D to D    & block     & multi block   & syscall   & dir durability 
+            &                                               & W$\to$W$  & W$\to$D   & D$\to$W   & D$\to$D   & Block     & Multi-block & \\
+\hline
+ext2        &                                               & \fwrong   & \fwrong   & \fwrong   & \fwrong   &  \fwrong  & \fwrong       &  \fwrong  & \fwrong   \\
+\hline
+ext3        &  {\footnotesize data=writeback}               & \fwrong   & \fwrong   &           &           &  \fwrong  & \fwrong   &                \\
+            &  {\footnotesize data=ordered}                 & \fwrong   &           &           &           &  \fwrong  &  \fwrong  &                \\
+            &  {\footnotesize data=journal}                 &           &           &           &           &           & \fwrong   &                \\
+\hline
+ext4        & {\footnotesize data=writeback}                & \fwrong   & \fwrong   &           &           &  \fwrong  & \fwrong   &                  \\
+            & {\footnotesize data=ordered}                  & \fwrong   & \fwrong   &           &           &  \fwrong  & \fwrong   &                   \\
+            &  {\footnotesize data=ordered,nodelalloc}      & \fwrong   &           &          	&			&  \fwrong  &  \fwrong  &                   \\
+            & {\footnotesize data=journal}                  &           &    		&           &           &			& \fwrong   &                   \\
+\hline
+btrfs       &                               				& \fwrong   & \fwrong   & \fwrong	& \fwrong   &           & \fwrong   &  \\
+\hline
+XFS         &                               				& \fwrong   & \fwrong   &           &			& \fwrong   & \fwrong   &  \\
+\hline
+ReiserFS    &                               				& \fwrong   &           &			&           & \fwrong   & \fwrong   & \\
+\hline
+Reiser4     &                               				&           & \fwrong   &           &           &           & 			& \\
+\hline
+NoFS        &                               				& \fwrong   & \fwrong   & \fwrong	& \fwrong   & \fwrong   & \fwrong   & \fwrong   & \fwrong \\
+\hline
+OptFS       &                               				& \fwrong   &			&           &           &           & \fwrong   & \\
+\end{tabular}
+\end{center}
+\vspace{-0.2in}
+\mycaption{tbl-fsresults}{Developer assumptions about I/O broken by file
+systems}{\footnotesize The table lists the different atomicity and ordering
+assumptions broken by various file systems due to I/O optimizations such as
+delayed allocation. Legend: W -- Write operation. D -- Directory operation. A
+\fwrong\ denotes we have a reproducible test case where the file system
+breaks the indicated assumption. Block atomicity indicates that an entire block
+(typically 4K bytes) must be written atomically. Create Durability indicates
+that the fsync of a parent directory is not required to durably create a file.} 
+\vspace{-0.1in}
+\end{table*}

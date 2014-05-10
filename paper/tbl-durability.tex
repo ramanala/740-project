@@ -1,0 +1,38 @@
+\begin{table}[t]
+\begin{center}
+\begin{tabular}{c|c|c}
+\textbf{File System} & \multicolumn{2}{c}{\textbf{Durability Interval (s) }} \\
+\cline{2-3}
+& File Ops & Dir Ops \\
+\hline
+ext2 & 30 & 30 \\
+\hline
+ext3 \smalltt{writeback} & 30 & 5 \\
+\hline
+ext3 \smalltt{ordered} & 5 & 5 \\
+\hline
+ext3 \smalltt{journal} & 5 & 5 \\
+\hline
+ext4 \smalltt{writeback} & 30 & 5 \\
+\hline
+ext4 \smalltt{ordered} & 30 & 5 \\
+\hline
+ext4 \smalltt{ordered, nodelalloc} & 5 & 5 \\
+\hline
+ext4 \smalltt{journal} & 5 & 5 \\
+\hline
+btrfs & 30 & 30 \\
+\hline
+xfs & 30 & 30 \\
+\hline
+reiserfs & 30 & 30
+\end{tabular}
+\end{center}
+\vspace{-0.2in}
+\mycaption{tbl-durability}{System Call Durability}{\footnotesize The table
+lists the time interval at which file and directory system calls are made
+durable by different file systems. Note that file operations in the table
+denote operations that result in metadata modifications. File operations that
+only affect data are made durable by the operating system every 30 seconds.}
+%\vspace{-0.1in}
+\end{table}

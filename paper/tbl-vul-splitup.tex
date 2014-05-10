@@ -1,0 +1,56 @@
+\begin{table}[!t]
+\begin{center}
+\setlength{\tmpa}{\tabcolsep}
+\setlength{\tabcolsep}{2pt}
+{\footnotesize
+\begin{tabular}{c|c|c|c|c|c}
+% Header
+\textbf{Application} & 
+\textbf{AWS} & 
+\textbf{AAS} & 
+\textbf{O} & 
+\textbf{D} & 
+\textbf{M} \\ 
+
+\if 0
+\multirow{2}{14mm}{\centering \textbf{Intra-Atomicity}} &
+\multirow{2}{14mm}{\centering \textbf{Inter-Atomicity}} &
+\multirow{2}{13mm}{\centering \textbf{Ordering}} & 
+\multirow{2}{14mm}{\centering \textbf{Durability}} & 
+\multirow{2}{10mm}{\centering \textbf{Others}} \\
+& & & &   \\
+\fi
+\hline
+BDB-BTREE & 2(16) & 1(1) & 2(6) & 1(1) & 0 \\                              
+\hline
+BDB-Hash & 2(12) & 1(1) & 1(7) & 1(1) & 1(2) \\                            
+\hline
+LevelDB-1.10 & 1(5) & 0 & 5(7) & 1(1) & 0 \\                          
+\hline
+LevelDB-1.15 & 1(5) & 0 & 3(16) & 0 & 1(10) \\                        
+\hline
+LMDB & 1(1) & 0 & 0 & 0 & 0    \\                      
+\hline
+GDBM & 1(1) & 2(2) & 0 & 3(3) & 0  \\                    
+\hline
+Git & 1(1) & 1(1) & 5(10) & 1(1) & 1(1) \\                 
+\hline
+Mercurial & *(12) & *(13) & *(29) & 0 & *(4)    \\
+\hline
+HSqlDB & 3(5) & 1(1) & 5(7) & 1(3) & 0   \\
+\hline
+Postgres & 1(1) & 0 & 0 & 0 & 0 \\
+\end{tabular}
+}
+\end{center}
+\vspace{-0.2in}
+\mycaption{tbl-vul-splitup}{Vulnerabilities by Type}{\footnotesize
+The table shows the split-up of application vulnerabilities across the four
+main classes we tested: atomicity within a system call (AWS), atomicity across
+system calls (AAS), ordering between system calls (O), and durability(D). Misc
+(M) indicate vulnerabilities that violate two or more properties at the same
+time (e.g., atomicity and ordering).
+} 
+\vspace{-0.1in}
+\setlength{\tabcolsep}{\tmpa}
+\end{table}

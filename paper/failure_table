@@ -1,0 +1,70 @@
+ATOMICITY VULNERABILITIES:
+                                     append                            rename               trunc               unlink                      write                 ztotal
+BerkeleyDB-BTREE                     1(10)                                                  1(5)                                            1(1)                  2(16)
+BerkeleyDB-Hash                      1(7)                                                   1(5)                                                                  2(12)
+LevelDB1.10                                                                                                                                 1(5)                  1(5)
+LevelDB1.15                          1(5)                                                                                                                         1(5)
+LMDB                                                                                                                                        1(1)                  1(1)
+gdbm                                                                   1(1)                                                                                       1(1)
+git                                                                    1(1)                                                                                       1(1)
+MercurialDynamic                     1(5)                              1(3)                                                                                       2(8)
+HSqlDb                               1(1)                              1(1)                                     1(3)                                              3(5)
+REORDERING VULNERABILITIES:
+                                     append                            rename               stdout              unlink                      write                 ztotal
+BerkeleyDB-BTREE                     1(1)                                                                                                   1(5)                  2(6)
+BerkeleyDB-Hash                      1(7)                                                                                                                         1(7)
+LevelDB1.10                                                                                 1(1)                2(4)                        3(3)                  6(8)
+LevelDB1.15                          3(16)                                                                                                                        3(16)
+gdbm                                                                                        3(3)                                                                  3(3)
+git                                  2(2)                              3(8)                 1(1)                                                                  6(11)
+MercurialDynamic                     2(5)                              2(10)                                                                                      4(15)
+HSqlDb                               1(1)                              1(1)                                     3(5)                                              5(7)
+INTER_SYS_CALL VULNERABILITIES:
+                                     append                            creat                rename              stdout                      trunc                 unlink                 write                  ztotal
+BerkeleyDB-BTREE                                                                                                1(1)                                                                     2(3)                   2(2)
+BerkeleyDB-Hash                                                                                                 1(1)                                                                     1(1)                   1(1)
+gdbm                                 2(3)                              1(1)                                                                                                                                     2(2)
+git                                  1(1)                                                   1(1)                                                                                                                1(1)
+MercurialDynamic                     1(3)                              4(5)                 4(13)                                           1(2)                  3(3)                                          7(13)
+HSqlDb                               1(1)                                                                       1(3)                                                                                            1(2)
+SPECIAL_REORDERING VULNERABILITIES:
+                                     append                            rename               ztotal
+BerkeleyDB-Hash                      1(2)                                                   1(2)
+LevelDB1.15                          1(10)                                                  1(10)
+git                                                                    1(1)                 1(1)
+MercurialDynamic                                                       1(4)                 1(4)
+TOTAL VULNERABILITIES:
+                                     append                            creat                link                mkdir                       rename                stdout                 trunc                  unlink            write   ztotal
+BerkeleyDB-BTREE                     2(11)                             1(5)                                                                                       1(1)                   1(5)                                     4(10)   5(24)
+BerkeleyDB-Hash                      2(21)                                                                                                                        1(1)                   1(5)                                     2(5)    4(22)
+LevelDB1.10                                                            3(4)                                                                                       1(1)                   2(3)                   2(4)              4(9)    7(13)
+LevelDB1.15                          4(57)                                                                                                                                                                                                4(31)
+LMDB                                                                                                                                                                                                                              1(1)    1(1)
+gdbm                                 4(5)                              1(1)                                                                 1(1)                  3(3)                                                            1(1)    6(6)
+git                                  3(6)                                                   2(4)                2(4)                        5(12)                 1(1)                                                                    7(14)
+MercurialDynamic                     4(29)                             6(8)                                                                 6(30)                                        1(2)                   3(3)                      12(40)
+HSqlDb                               3(3)                              3(3)                                                                 3(5)                  1(3)                                          4(9)                      9(14)
+CATEGORIZED FAILURES:
+                                     CORRUPTED_READ_VALUES             FULL_READ_FAILURE    FULL_WRITE_FAILURE  MISC                        PARTIAL_READ_FAILURE  PARTIAL_WRITE_FAILURE  SILENT_DATA_LOSS       ztotal
+BerkeleyDB-BTREE                     1(9)                              3(11)                3(11)               1(1)                        1(9)                                         3(3)                   5(24)
+BerkeleyDB-Hash                      1(2)                              2(11)                2(11)                                                                                        3(9)                   4(22)
+LevelDB1.10                          7(13)                                                                                                                                                                      7(13)
+LevelDB1.15                          4(31)                                                                                                                                                                      4(31)
+LMDB                                                                                        1(1)                1(1)                                                                                            1(1)
+gdbm                                                                   2(2)                 2(2)                2(2)                                                                     2(2)                   6(6)
+git                                                                    3(4)                 4(10)               5(11)                       2(3)                                         1(1)                   7(14)
+MercurialDynamic                                                       2(2)                 3(5)                                            11(31)                6(19)                                         12(40)
+HSqlDb                               2(2)                              4(7)                 4(7)                                                                                         4(5)                   9(14)
+
+
+NON-CATEGORIZED FAILURES:
+                                     DB Verify tool - False Negative!  Dirstate corruption  FSCK-only errors    Note:Not Silent Corruption  Reflog error only     Repository Corruption  Repository corruption  Silent data loss  ztotal
+BerkeleyDB-BTREE                     1(1)                                                                       1(9)                                                                                                              5(24)
+BerkeleyDB-Hash                                                                                                                                                                                                                   4(22)
+LevelDB1.10                                                                                                                                                                                                                       7(13)
+LevelDB1.15                                                                                                                                                                                                                       4(31)
+LMDB                                                                                                                                                                                                                              1(1)
+gdbm                                                                                                                                                                                                                              6(6)
+git                                                                                         2(2)                                            1(1)                                         4(10)                  1(1)              7(14)
+MercurialDynamic                                                       9(16)                                                                                      6(24)                                                           12(40)
+HSqlDb                                                                                                                                                                                                                            9(14)

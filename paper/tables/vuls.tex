@@ -1,0 +1,51 @@
+\setlength{\tempa}{\tabcolsep}
+\setlength{\tabcolsep}{1pt}
+\begin{table}[t]
+\centering
+{\footnotesize
+\begin{tabular}{>{\scriptsize}l!{\vrule width 1pt}c|cccc|ccc|cc!{\vrule width 1pt}c|c|c|>{\scriptsize}c@{}!{\vrule width 1pt}>{\bfseries}c}
+%\begin{tabular}{p{1.0cm}p{1.0cm}p{1.0cm}p{1.0cm}p{1.0cm}p{1.0cm}p{1.0cm}p{1.0cm}p{1.0cm}p{1.0cm}p{1.0cm}p{1.0cm}p{1.0cm}p{1.0cm}}
+\multirow{3}{1cm}{\scriptsize \textbf{Application}} & \multicolumn{10}{c!{\vrule width 1pt}}{{\textbf{Types}}} & \multicolumn{4}{c!{\vrule width 1pt}}{{\textbf{Failure Consequences}}} & \multirow{3}{*}{\rotatebox{90}{{Unique static vulnerabilities~~~}}} \\ \cline{2-11}\cline{12-15}
+ & \multirow{2}{*}{\rotatebox{90}{\textbf{Across-syscalls atomicity~~~~}}} & \multicolumn{4}{c|}{{\scriptsize \textbf{Atomicity}}} & \multicolumn{3}{p{0.38cm}|}{\scriptsize\textbf{Orde-ring}} &  \multicolumn{2}{p{0.3cm}!{\vrule width 1pt}}{\scriptsize\textbf{Dura-bility}} & & & & \\ \cline{3-11}
+& 
+& \rotatebox{90}{{Appends and truncates}}
+& \rotatebox{90}{{Multi-block overwrites}}
+& \rotatebox{90}{{Sinlgle-block overwrites}}
+& \rotatebox{90}{{Renames and unlinks}}
+& \rotatebox{90}{{Safe file flush}}
+& \rotatebox{90}{{Safe renames}}
+& \rotatebox{90}{{Other}}
+& \rotatebox{90}{{No commit}}
+& \rotatebox{90}{{Losing old commit}}
+& \rotatebox{90}{{Silent corruption}}
+& \rotatebox{90}{{Data loss}}
+& \rotatebox{90}{{Cannot open}}
+& \rotatebox{90}{{{\footnotesize Other}}}
+& 
+\\ \hline
+BDB-BTree &   & 2 & 1 &   &   & 1 &  &  & 1 & 1 &  & 2 & 1{\scriptsize $^{\#}$},2 & 1 failed read & 4 \\ \hline
+BDB-Hash &   & 2 &   &   &   &  &  &  & 1 & 2 &   & 3 & 1{\scriptsize $^{\#}$},1 &  & 4 \\ \hline
+Leveldb1.10  & 1* &   &   &   &   & 2 &  & 2 & 1 & 2 & 6 & 3 &   &  & 7 \\ \hline
+Leveldb1.15  &   & 1 &   &   &   &  &  & 3 &   &   & 4 &  &   &  & 4 \\ \hline
+LMDB &   &   &   & 1 &   &  &  &  &   &   &   &  &   & read-only open & 1 \\ \hline
+GDBM  & 1 &   &   &   & 1 &  &  & 1 & 2 &   &   & 2 & 3 &  & 5 \\ \hline
+HSQLDB  &   & 1 &   &   & 2 & 1 &  & 3 & 1 & 2 & 2 & 3 & 5 &  & 10 \\ \hline
+Sqlite-Roll &   &   &   &   &   &  &  &  & 1 &   &   & 1 &   &  & 1 \\ \hline
+PostgreSQL &  &  &  & 1 &  &  &  &  &  &  &  &  & 1{\scriptsize $^{\#}$} &  & 1 \\ \hline
+Git  & 1 &   &   &   & 1 & 2 & 1 & 3 & 1 &   &   & 1 & 5 & 3$^{+}$ & 9 \\ \hline
+Mercurial & 4 & 1 &   &   & 1 &  & 1 & 4 & 2 &   &   & 2 & 6 & 7 dirstate fail & 12 \\ \hline
+VMWare &   &   &   &   & 1 &  &  &  &   &   &   &  & 1 &  & 1 \\ \hline
+HDFS &  &  &  &  & 1 &  &  & 1 &  &  &  &  & 2 &  & 2 \\ \hline
+ZooKeeper &  &  &  & 1 &  &  &  & 1 & 2 &  &  & 2 & 2 &  & 4 \\ \hline
+Total & \textbf{6} & \textbf{7} & \textbf{1} & \textbf{3} & \textbf{7} & \textbf{6} & \textbf{2} & \textbf{18} & \textbf{12} & \textbf{7} & \textbf{12} & \textbf{19} & \textbf{30} & \textbf{12} & \textbf{65}\\
+\end{tabular}
+}
+\caption{\textbf{Vulnerabilities - Types and Consequences.} \textit{
+{\footnotesize
+The table shows the discovered static vulnerabilities categorized by the type of persistence property and consequences. The number of unique vulnerabilities for an application can be different from the sum of the categorized vulnerabilities, since the same source code lines can exhibit different behavior. SQLite-WAL is not shown because we did not find any vulnerabilities. \textbf{*} The atomicity vulnerability in Leveldb1.10 corresponds to multiple mmap() writes. \textbf{$^{+}$} There are 2 fsck-only and 1 reflog-only errors in Git. \textbf{{\scriptsize $^{\#}$}} These are known, documented failures.
+}
+}}
+\label{tbl-vuls}
+\end{table}
+\setlength{\tabcolsep}{\tempa}
+

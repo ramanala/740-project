@@ -1,0 +1,20 @@
+\begin{figure}[!t]
+\begin{Verbatim}[fontsize=\relsize{-1}]
+1 rename(index, index.lock)
+2 create(f1)
+3 create(f2.tmp)
+4 write(f1, data, 1M)
+5 write(f2.tmp, data, 4K)
+6 link(f1, f1.link)
+7 rename(f2.tmp, f2)
+8 rename(index.lock, index) 
+\end{Verbatim}
+\vspace{-0.2in}
+\mycaption{fig-assumptions}{Program interacting with file system}{\footnotesize
+The figure shows an example of how a program interacts with the file system
+through system calls. The program contains a number of potential vulnerablities
+due to assumptions about the atomicity, ordering, and durability of system
+calls.} \vspace{-0.1in}
+\end{figure}
+
+

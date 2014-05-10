@@ -1,0 +1,237 @@
+\setlength{\textfloatsep}{16pt}
+\setlength{\floatsep}{16pt}
+\section{\Kassandra}
+Our entire testing methodology can be viewed as three straightforward steps. First, the user runs a workload of the application, and records a system-call trace. Second, \Kassandra\ uses the recorded trace to calculate different file system states that can result if a crash happens. Third, a user-provided checker is run on the different states calculated by the testing framework, to verify that the application recovers correctly from all states.
+
+Section~\ref{tracecollection} explains the first step in the methodology, sections~\ref{crashstate}--\ref{optimizations} discuss the second step, and section~\ref{checker} details the third step. Finally, section~\ref{discussion} describes some limitations and practical considerations.
+
+\subsection{Trace collection}
+\label{tracecollection}
+Collecting traces is quite simple. Listing~\ref{one} shows an example workload script for Git. The script first initializes a Git repository, creating a file and adding it to the repository. Then, it takes a snapshot of this initial state of the repository, by copying the directory containing the repository. Finally, it performs the actual workload (a {\it git commit}), and records a system-call trace of the workload. The {\it strace} utility used in the script is slightly different from the standard utility: in the \Kassandra\ version, it uses the Pin instrumentation framework to record accesses to different {\it mmap()} regions. (Some strace options for recording additional information, such as all data written as part of system calls, and tracing child processes, are not shown in listing~\ref{one}.)
+\begin{lstlisting}[float=t, caption = {\textbf{Workload script.}}, label = {one}, escapechar=!]
+mkdir /repository
+cd /repository
+git init .
+echo hello > hello.txt
+git add hello.txt
+cp -a /repository /initial_snapshot
+strace -o recorded_trace \
+	git commit -m "hello added"
+\end{lstlisting}
+
+% TODO: Creating micro-ops, filtering, initial snapshot
+% Linux-lingo
+\subsection{Constructing crash states}
+\label{crashstate}
+Calculating different file-system crash states that can result during the workload, is complicated for many reasons. The first is that Linux does not define the allowed crash states for a sequence of file-system operations. For example, if the user is deleting a file in (POSIX-compliant) ext2, and a crash happens, other arbitrary files can get deleted; there is no standard documentation that specifies whether such behavior is unacceptable (or acceptable) in other file systems.
+
+We define the different possible crash states in terms of intermediate actions each system call can generate. As an example, for a \writeSC\ system call that overwrites a part of a file, we define the intermediate actions to be each byte-level write of the file. Note that there is no restriction on the order of imposing these intermediate actions (except for the {\it sync} restrictions described later). Thus, if the size of the \writeSC\ system call is N bytes, it can generate $2^{N}$ unique crash states: each of the N intermediate actions can be applied or omitted independent of the other actions. There are no implicit restrictions on ordering between the intermediate actions of different system calls, either. If there are two \writeSC\ calls of size M and N, to two different files, they can generate a total of $2^{M + N}$ unique crash states.
+
+Possible crash-states are restricted by the presence of \fsyncSC-like calls. These calls forcibly apply some of the previous intermediate actions, before allowing any future action to be applied. The set of actions forced could be all actions on a file (\fsyncSC\ or \fdatasyncSC\ on a file), all actions on a directory (\fsyncSC\ on a directory in Linux), or actions on parts of a file (\msyncSC, {\it sync\_file\_range()}, \writeSC\ on an {\it O\_SYNC} descriptor). As an example, consider again two \writeSC\ calls of size M and N, but this time separated by an \fsyncSC\ on the first-written file; the number of unique crash states will be $2^M + 2^N$, since all intermediate actions of the first write should happen before the second write.
+
+To simulate the different crash-states possible, we first convert the obtained system-call trace into a {\it \microprogram}; each {\it \microinstruction} corresponds to the intermediate actions of system calls, as defined previously. Listing~\ref{two} shows an example system-call trace, and listing~\ref{three} shows the corresponding \microprogram. \Microinstructions\ do not contain references: they contain direct information on what is being modified, and the exact modification. For example, for the \linkSC\ system call in listing~\ref{two}, the corresponding \microinstruction\ does not refer to the source path. Instead, the \microinstruction\ encapsulates the inode of the directory that is being modified, and the directory entry and destination inode (the modification). Thus, each \microinstruction\ can be independently applied to the current state of the file system.
+
+Given a subset of \microinstructions\ from the complete \microprogram, the subset can be applied in sequence to the existing state to produce a crash state. Note that the effect of a \microinstruction\ can be invisible depending on other \microinstructions\ in the applied set. For example, in listing~\ref{three}, the effect of the \linkSC\ \microinstruction\ will be invisible, if the \mkdirSC\ \microinstruction\ is not applied. Similarly, a \writeSC\ \microinstruction\ will become invisible if a future \writeSC\ to the same offset (in the same file) is also applied.
+
+All possible crash states of a given system-call trace (as defined previously), can be computed by considering different subsets of \microinstructions. Furthermore, if the trace does not contain any \fsyncSC-like calls, the subsets will reflect only the possible crash states defined previously. Thus, all possible subsets of \microinstructions, with additional constraints corresponding to \fsyncSC, can be used to easily construct the sound and complete set of crash states.
+
+Fsync() constraints can be satisfied by first imposing dependencies between \microinstructions\ and \fsyncSC\ calls, and then considering only subsets of \microinstruction\ that satisfy those dependencies. The dependencies follow two simple rules. First, an \fsyncSC\ is dependent on all \microinstructions\ it forces to disk, and any previous \fsyncSC. Second, all \microinstructions\ are dependent on any previous \fsyncSC.
+
+The state space of subsets thus derived is of exponential order. If a system call trace resulted in N \microinstructions, and does not have any \fsyncSC, there will be $2^N$ possible subsets. The next subsections describes how the state space can be reduced, and other optimizations.
+\begin{lstlisting}[float=t, caption = {\textbf{System-call trace.}}, label = {two}, escapechar=!]
+open(pathname="/old") = 10
+pwrite(fd=10, offset=0, data="foo", size=3)
+pwrite(fd=10, offset=0, data="bar", size=3)
+mkdir(pathname="/dir")
+link(oldpath="/old", newpath="/dir/new")
+\end{lstlisting}
+
+\begin{lstlisting}[float=t, caption = {\textbf{Microprogram. }{\footnotesize {\it Inodes 1000 and 1002 correspond to directories ``/'' and ``/dir'' respectively. Inode 1001 corresponds to the file ``/old''.}}}, label = {three}, escapechar=!]
+NOP
+!\vspace{-15pt}!
+!\hrulefill!
+write(inode=1001, data="f", offset=0)
+write(inode=1001, data="o", offset=1)
+write(inode=1001, data="o", offset=2)
+!\vspace{-15pt}!
+!\hrulefill!
+write(inode=1001, data="b", offset=0)
+write(inode=1001, data="a", offset=1)
+write(inode=1001, data="r", offset=2)
+!\vspace{-15pt}!
+!\hrulefill!
+mkdir(parent_inode=1000, direntry="dir", inode=1002)
+!\vspace{-15pt}!
+!\hrulefill!
+link(dirinode=1002, direntry="new", inode=1001)
+\end{lstlisting}
+
+\subsection{Selective crash state exploration}
+\label{selective}
+Fortunately, exploring a part of the entire state space is sufficient to investigate a reasonable set of crash states. \Kassandra\ investigates	 the following `simple' crash states:
+
+\noindent\textbf{Inter-syscall atomicity:} A crash between two system calls results in a failure (with no syscalls broken down or re-ordered). Any vulnerabilities in these crash states are also exposed during process crashes (not just system crashes), and hence their exposure is independent of file systems. However, if a system crash occurs, the window of exposure might significantly increase, depending on file system implementation details.
+
+\noindent\textbf{Syscall atomicity:} A crash within a system call results in a failure; to be more specific, a system call is broken down, and a crash occurs while only a part of the system call has been persisted. Note that we do not consider here system calls getting re-ordered: while each system call is broken down, all parts of a call are persisted before persisting the next call.
+
+\noindent\textbf{Syscall re-ordering:} A single system call, `X', gets completely re-ordered after some system calls, with no call other than `X' getting re-ordered.
+
+% In other words, a re-ordering vulnerability, X$\rightarrow$Y, is when system call X is omitted from the crash state, and the application fails when there is a crash immediately after system call Y.
+
+%Simple inter-syscall atomicity, and syscall re-ordering, are concerned with only a few subsets of \microinstructions.
+
+\subsubsection{Inter-syscall atomicity and re-ordering}
+
+For simple inter-syscall atomicity, we need to consider those subsets of \microinstructions\ that are prefixes of the \microinstruction\ sequence, and only those prefixes that interrupt the sequence between two system calls. Thus, for the \microprogram\ in listing~\ref{three}, we will investigate one crash state corresponding to each of the horizontal lines in the listing. It is easy to see that, with S relevant system calls, there will be S such crash states.
+
+Simple syscall re-ordering also leads to few crash states; listing~\ref{four} shows the algorithm for exploring those crash states. In short, for each system call, we consider subsets of \microinstructions\ that completely omit that system call, and include different prefixes of the system calls after the omitted system call. If there are S relevant system calls, there will approximately be $\frac{S^2}{2}$ such crash states.
+
+\begin{lstlisting}[float=t, caption = {\textbf{Algorithm for simple syscall re-ordering.}}, label = {four}, escapechar=!]
+M = generate_microinstr(syscall_trace, data_splits=1)
+for S in range(0, syscalls_count):
+    M.syscall_omit_range(S, syscalls_count)
+    for x in range(S + 1, syscalls_count):
+        M.syscall_include(x)
+        if M.satisfies_dependencies():
+            M.invoke_checker()
+    M.syscall_include(S)
+\end{lstlisting}
+
+
+\subsubsection{Syscall atomicity}
+
+Fully exploring simple syscall atomicity, however, is not straight-forward. To explore the atomicity of a single system call `X', we need to consider one subset for each possible combination of the \microinstructions\ generated by X. (All considered subsets will include all system calls before X, and no system call after X). Thus, a \writeSC\ of N bytes that overwrites a part of a file has $2^N$ unique crash states that relate to its simple syscall atomicity.
+
+To tackle simple syscall atomicity, we restrict the number of \microinstructions\ generated from each system call. To be more specific, for system calls that affect data or file size (appending, overwriting, truncating etc. on files), instead of generating \microinstruction\ at byte-granularity for the data, we generate \microinstructions\ at a coarser granularity. Note that, apart from data or file size, the number of \microinstructions\ generated from each system call is independent of the parameters of the system call; hence, restricting the data granularity while generating \microinstructions\ is sufficient.
+
+We generate coarse-grained \microinstructions\ in two different ways from system calls, and explore syscall atomicity in both of them. The first way is to divide the data in each system call into a fixed number of parts (we used two or three parts). The intuition behind such division is simple: application developers might assume page-level data writes are atomic; we try to invoke some states where the split happens within page boundaries. The second way is to divide the data at some page-aligned granularity. The intuition behind this is that many applications store page-granularity checksums; if a large write were assumed to be atomic, breaking atomicity within a page can be detected using the checksum (and recovered from), while simply omitting an entire page might be undetectable.
+
+\subsubsection{Custom crash state exploration}
+
+\begin{lstlisting}[float=t, caption = {\textbf{Algorithm for \microinstruction\ re-ordering.}}, label = {five}, escapechar=!]
+M = generate_microinstr(syscall_trace, data_splits=3)
+for micro in range(0, len(M)):
+    M.microinstr_omit_range(micro, len(M))
+    for x in range(micro + 1, len(M)):
+	M.microinstr_include(x)
+        if M.satisfies_dependencies():
+            M.invoke_checker()
+    M.microinstr_include(micro)
+\end{lstlisting}
+
+The default behavior of \Kassandra\ is to explore the simple crash states defined previously. This is sufficient for a fair level of confidence of the application's correctness (section~\ref{study} shows many applications exposing simple vulnerabilities). It is also sufficient to study common dependencies that applications have on file system crash behavior (across many applications). However, in some situations, it is useful to allow the user to specify more complex crash states.
+
+As an example, in section~\ref{study}, we tried specific complex crash states for each application to gain an understanding of the structure of the protocol used. A more generic usecase might involve an application developer trying to reproduce a specific complex vulnerability observed in the wild; if the developer can specify the \microinstruction\ subsets corresponding to suspicious crash states, \Kassandra\ can construct the crash states and verify them with the checker. Another usecase is a patient application developer willing to run \Kassandra\ longer to explore slightly-complex bugs; listing~\ref{five} shows an algorithm for investigating situations where a single \microinstruction\ can be re-ordered (thus affecting both atomicity and ordering). Application developers can also use application-specific optimizations to filter different crash states that are equivalent from the application's perspective.
+
+Kassandra\ allows the user to specify crash states using a generic API. Listings~\ref{four} and~\ref{five} are, in fact, Python snippets invoking the API. The API is straightforward; it provides operations for generating \microinstruction\ from a system call trace (specifying different granularities for data), and specifying subsets of \microinstructions\ (that correspond to crash states). It also inlcudes operations to verify whether a \microinstruction-subset satisfies dependencies, and to retrieve information about each generated \microinstruction.
+
+\subsubsection{Custom file system model}
+
+A particularly interesting usecase for \Kassandra\ is examining the correctness of applications, given the specific behavior of an underlying file system. Note that the behavior need not be that of an existing, real file system; the user might be interested in how modifying a file system (changing the crash behavior slightly) might affect the application. (We believe such correctness examinations should be routinely carried out by file-system developers on a standard set of application workloads, every time they introduce a ``feature'' that changes crash behavior.)
+
+In this case, the user is not interested in other crash states defined in section~\ref{crashstate}. Hence, the default behavior of \Kassandra\ is ineffective for two reasons. First, examining the uninteresting crash states costs time. Second, if the application is found to be vulnerable in a specific crash state, the user has to then reason about whether the crash state is interesting; i.e., \Kassandra\ reports false positives.
+
+Kassandra\ allows the user to define interesting crash behavior, and then generate only crash states corresponding to that behavior. To do this, \Kassandra\ first converts system calls into logical operations on the file system; for example, the {\it writev()} system call is converted into a logical `write' operation containing three parameters: the file inode, offset, and data. The user then defines the crash behavior in terms of how logical operations map to \microinstructions, and dependency relationships between \microinstructions. 
+
+\subsection{Optimizing crash state construction}
+\label{optimizations}
+Apart from restricting the crash states examined, \Kassandra\ employs many lossless optimizations.
+
+\noindent\textbf{Crash state caching:} After constructing a crash state from a set of \microinstructions\, before the checker is invoked, \Kassandra\ caches the constructed state. If another crash state needs to be constructed, and the new set of \microinstructions\ is a superset of the old set, only the additional instructions need to be applied on the cached state. This avoids replaying all \microinstructions\ for every crash state construction.
+
+%TODO: \noindent\textbf{Dependency verification caching:} After constructing a crash state from a set of \microinstruction\ instructions, before the checker is invoked, \Kassandra\ caches the constructed state (i.e., copies the file hierarchy). If another crash state needs to be constructed from a superset of the same \microinstruction\ instructions, only the additional instructions need to be applied on the cached crashed state.
+
+\noindent\textbf{Unique crash states:} Subsets of \microinstructions\ obtained in section~\ref{crashstate}, while being sound and complete with respect to the crash states they generate, do not generate unique crash states. This is due to the invisible \microinstructions\ explained in section~\ref{crashstate}. \Kassandra\ currently does generate these additional subsets, constructing non-unique crash states from them. However, it stores a canonicalization of constructed crash states in a hash table, and invokes the application checker only for new states. This behavior was decided upon after considering two factors. First, in all our workloads (described in section~\ref{study}) except one (SQLite), the checker's latency eclipsed the cost of constructing crash states (after applying the previous optimizations). Second, non-unique crash states were few in our considered workloads, because \microinstructions\ that affected visibility were few. For example, consider a mkdir call that controls other operations' visibility in a trace with N \microinstructions. The benefit that can be achieved by trimming the corresponding non-unique states is less than N for the simple crash states described previously. % (if all crash states were considered, the benefit would be less than reducing the crash states by half).
+
+\noindent\textbf{Multi-threading and distribution:} \Kassandra\ can both run multiple threads invoking checkers in the same machine, and run across multiple machines. We used multiple threads extensively for obtaining the results in section~\ref{study}, and multiple machines for one workload (HDFS).
+
+\noindent\textbf{Filtering files:} Typically, processes write to many files that are unrelated to the actual datastore of the application. For example, many applications write to debug logs. Producing different crash states corresponding to these unrelated files does not help investigating application correctness. Hence, \Kassandra\ allows the user to specify a filter for interesting files; only system calls affecting files that pass the filter are converted into \microinstructions.
+
+\subsection{Checking crash states}
+\label{checker}
+The crash states produced by \Kassandra\ can easily be verified for internal consistency of the application's datastore. For example, in a key-value store, a checker can try to retrieve keys and values, and ensure that the store contains only sensible keys and values. However, in many cases, correctness also depends on durability. In a key-value store that guarantees durability, any crash state {\it after control returns to the user during the workload run}, should contain inserted key-value pairs.
+
+`Durability' can be considered as simply ordering with respect to external events~\cite{Nightingale06-Rethink}. Hence, durability properties can be verified by considering external actions as \microinstructions, and reasoning about ordering vulnerabilities related to the external actions. \Kassandra\ converts any writes to the standard output seen in the system-call trace into corresponding \microinstructions. Such `stdout' \microinstructions\ introduce two groups of new dependencies (similar to the \fsyncSC\ dependencies in section~\ref{crashstate}). First, stdout \microinstructions\ are dependent on previous calls to \fsyncSC; second, all \microinstructions\ following the stdout are dependent on the stdout. Considering all \microinstruction\ subsets that satisfy the dependencies will produce all valid crash states containing both the crashed file system hierarchy, and terminal outputs.
+
+
+%If a subset (of \microinstructions) satisfies the dependencies, a crash could have happened while all stdout Subsets satisfying the dependencies produce a crashed state are valid with respect to will result in a valid crash state: all stdout operations in the subset will have been printed on the terminal, and the crashed file system state contains the effects of the rest of the \microinstructions. Also, considering all subsets that satisfy the dependencies will produce all such valid crash states and the respective terminal outputs.
+
+\Kassandra\ supplies two command-line arguments to the user-supplied checker: a path to the reconstructed file system hierarchy, and all printed messages on the terminal at the time of the crash. Listing~\ref{six} shows a sample checker that uses both these arguments to validate Git. It is trivial to extend \Kassandra\ to consider external actions other than terminal messages. In the workloads we examined (section~\ref{study}), terminal messages were both sufficient and the most intuitive; we simply added more print statements.
+
+\begin{lstlisting}[float=t, caption = {\textbf{Checker. } {\footnotesize{\it If the application behaves correctly, True is returned. Otherwise, the reason for failure is printed out, and False is returned.}}}, label = {six}, escapechar=!]
+def checker(crashed_repository, stdout):
+    os.chdir(crashed_repository)
+    try:
+        log_output = check_output("git log")
+    except CalledProcessError as e:
+        print "Failed"
+        return False
+
+    if "1 file changed" in stdout and \
+            not "hello added" in log_output:
+        print "Commit not durable"
+        return False
+
+    return True
+\end{lstlisting}
+
+\subsection{Discussion} \label{discussion} \Kassandra\ has some limitations.
+It serializes application-level threads: any possible crash-vulnerabilities
+due to different thread interleavings will not be detected. However, in most
+studied workloads (section~\ref{study}), the application logically serializes
+the write protocol using system-level locking; to our knowledge, the only
+studied workloads that might be affected by interleavings are LevelDB and
+VMWare. \Kassandra\ also requires users to specify workloads, akin to a
+unit-testing framework; this is a disadvantage if the goal is to completely
+verify an application. Both thread interleavings and workload automation are
+problems orthogonal to \Kassandra: standard model checking
+techniques~\cite{verisoft} can be used to augument the current framework,
+without affecting the exploration or construction of crash states.
+
+\Kassandra\ does not deal with file or directory attributes, but this is not a
+basic limitation of the framework. None of our studied workloads' correctness
+depended on these attributes, and we decided not to spend engineering effort
+on handling the corresponding system calls; instead, reconstructed crash
+states simply possess those attributes that occur naturally during
+reconstruction.
+
+Any vulnerable crash states that \Kassandra\ finds can be readily related to
+application-level system calls, as opposed to a framework that can only
+describe a crash state in terms of I/O blocks. Hence, the crash states can be
+directly used to understand shortcomings of the application protocol. However,
+some of the workloads we examined have too many vulnerabilities; one of our
+initial challenges was to make sense of the corresponding crash states, and
+report them in a manner useful to the programmer. For simple crash states,
+\Kassandra\ now reports vulnerabilities similar to how compilers report
+errors: a readable explanation of the simple crash state and the checker
+output is displayed. After a failure is reported for a particular `class' of
+crash states, other failures discovered for the same `class' are not reported;
+for example, if two failing crash states break the atomicity of a single
+system call in different ways, \Kassandra\ reports the failure only once. For
+complex crash states, \Kassandra\ reports all system calls that were
+completely omitted, and the omitted \microinstruction\ instructions for system
+calls partially omitted.
+
+\if 0
+\begin{lstlisting}
+repository="$1"
+stdout="$2"
+cd "$repository"
+log_output=$(git log)
+if [ $? -eq 1 ]; then
+    echo "Failure"
+    exit 1
+elif [[ "$stdout" =~ "1 file changed" ]]; then
+    if [[ "$log_output" =~ "hello added" ]]; then
+        echo "Correct"
+        exit 0
+    else
+        echo "Failure"
+        exit 1
+    fi
+else
+    echo "Correct"
+    exit 0
+fi
+\end{lstlisting}
+\fi

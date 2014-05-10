@@ -1,0 +1,34 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}
+\BOOKMARK [1][-]{section.2}{Persistence Properties}{}
+\BOOKMARK [2][-]{subsection.2.1}{An Example}{section.2}
+\BOOKMARK [2][-]{subsection.2.2}{The Block Order Breaker \(BOB\)}{section.2}
+\BOOKMARK [3][-]{subsubsection.2.2.1}{Atomicity}{subsection.2.2}
+\BOOKMARK [3][-]{subsubsection.2.2.2}{Ordering}{subsection.2.2}
+\BOOKMARK [2][-]{subsection.2.3}{Summary}{section.2}
+\BOOKMARK [1][-]{section.3}{The Application-Level Crash Explorer \(ALICE\)}{}
+\BOOKMARK [2][-]{subsection.3.1}{Testing a Persistence Property}{section.3}
+\BOOKMARK [3][-]{subsubsection.3.1.1}{Logical Operations}{subsection.3.1}
+\BOOKMARK [3][-]{subsubsection.3.1.2}{File-System Persistence Model}{subsection.3.1}
+\BOOKMARK [3][-]{subsubsection.3.1.3}{Constructing and Checking a Crash State}{subsection.3.1}
+\BOOKMARK [2][-]{subsection.3.2}{Persistence Properties Tested}{section.3}
+\BOOKMARK [2][-]{subsection.3.3}{Static Vulnerabilities}{section.3}
+\BOOKMARK [2][-]{subsection.3.4}{Implementation}{section.3}
+\BOOKMARK [2][-]{subsection.3.5}{Limitations}{section.3}
+\BOOKMARK [1][-]{section.4}{Application Vulnerabilities}{}
+\BOOKMARK [2][-]{subsection.4.1}{Workloads and Checkers}{section.4}
+\BOOKMARK [2][-]{subsection.4.2}{Overview}{section.4}
+\BOOKMARK [3][-]{subsubsection.4.2.1}{Databases and Key-Value Stores}{subsection.4.2}
+\BOOKMARK [3][-]{subsubsection.4.2.2}{Version Control Systems}{subsection.4.2}
+\BOOKMARK [3][-]{subsubsection.4.2.3}{Virtualization and Distributed Systems}{subsection.4.2}
+\BOOKMARK [2][-]{subsection.4.3}{Vulnerabilities Found}{section.4}
+\BOOKMARK [2][-]{subsection.4.4}{Common Patterns}{section.4}
+\BOOKMARK [3][-]{subsubsection.4.4.1}{Atomicity across System Calls}{subsection.4.4}
+\BOOKMARK [3][-]{subsubsection.4.4.2}{Atomicity within System Calls}{subsection.4.4}
+\BOOKMARK [3][-]{subsubsection.4.4.3}{Ordering between System Calls}{subsection.4.4}
+\BOOKMARK [3][-]{subsubsection.4.4.4}{Durability}{subsection.4.4}
+\BOOKMARK [3][-]{subsubsection.4.4.5}{Summary}{subsection.4.4}
+\BOOKMARK [2][-]{subsection.4.5}{Vulnerabilities On Current File Systems}{section.4}
+\BOOKMARK [2][-]{subsection.4.6}{Evaluating New File-System Designs}{section.4}
+\BOOKMARK [1][-]{section.5}{Discussion}{}
+\BOOKMARK [1][-]{section.6}{Related Work}{}
+\BOOKMARK [1][-]{section.7}{Conclusion}{}

@@ -1,0 +1,51 @@
+\begin{table}[!t]
+\begin{center}
+\setlength{\tmpa}{\tabcolsep}
+\setlength{\tabcolsep}{2pt}
+{\footnotesize
+\begin{tabular}{c|c|c|c|c}
+% Header
+\textbf{Application} & \textbf{Domain} & \textbf{\#VC} & \textbf{\#VS} &
+\textbf{\#VL} \\
+\hline
+
+% Data
+Git & VC  & 1463 & 14 & 7  \\
+\hline
+Mercurial & VC  & 20840 & 40 & *  \\
+\hline
+BerkeleyDB & KV & 1024 & 46 & 9  \\
+\hline
+LevelDB-1.10 & KV & 15487 & 15* & 4* \\
+\hline
+LevelDB-1.15 & KV & 16963 & 31 & 4  \\
+\hline
+LMDB  & KV & 1  & 1 & 1 \\
+\hline
+GDBM  & KV & 704 & 6 & 6  \\
+\hline
+HSqlDB  & RDB & 1063 & 14 & 9  \\
+\hline
+SQLite  & RDB & 1 & 1 & 1  \\
+\hline
+Postgres  & RDB & 1 & 1 & 1 \\
+\hline
+VMWare & V  & 270 & 1 & 1 \\
+\hline
+HDFS & DFS & X \\
+\end{tabular}
+}
+\end{center}
+\vspace{-0.2in}
+\mycaption{tbl-vul-summary}{Application Vulnerabilities}{\footnotesize
+The table lists each application tested using \toolname, along with the type
+of the application. The number of source code lines involved in a
+vulnerability is indicated with the number of vulnerabilities enclosed in
+brackets.  Legend: VC -- Vulnerable Crash States. VS -- Vulnerable System
+Calls.  VL -- Vulnerable Source Code Lines. VC -- Version control. KV --
+Key-Value Store.  RDB -- Relational RDB.  V -- Virtualization. DFS --
+Distributed FS.  
+} 
+\vspace{-0.1in}
+\setlength{\tabcolsep}{\tmpa}
+\end{table}

@@ -1,0 +1,57 @@
+\section{Update Protocols}
+\label{sec-protocols}
+
+In this section, we explain why update protocols vary across
+applications. Update protocols have to satisfy two goals: performance and
+correctness.  Unfortunately, these goals are often in conflict with each
+other. 
+
+If an update protocol is completely synchronous, it is simple and easy to get
+right. However, this is extremely slow. Therefore, applications use
+asynchronous operations in their protocols, and force persistence using the
+\smalltt{fysnc()} system call. However, \smalltt{fsync()} is very expensive,
+causing the application thread to block for an arbitrary amount of time
+ranging from a few milliseconds to several seconds. Hence, applications use
+\smalltt{fsync()} very sparingly in their update protocols. This leads to
+complex update protocols.
+
+\input{fig-protocols}
+To understand how update protocols can vary in terms of performance and
+correctness, we examine the three update protocols shown in
+Figure~\ref{fig-protocols}. These are simplified versions of update protocols
+used by the embedded database SQLite in different configurations.
+
+Protocol $(a)$ updates the database file using a single write. This protocol is
+vulnerable to either a process or system crash: if the \smalltt{write()} call
+is interrupted, the database could be partially updated (e.g., only the first
+block) leading to corruption.   
+
+Protocol $(b)$ first writes to an application-level journal, and then to the
+actual database. If a process crash interrupts the journal write, the database
+in unaffected; if the process crashes in the middle of database write, SQLite
+can use the journal to restore the database to a consistent state. However,
+the protocol is not correct in the event of an inopportune system crash. Upon
+completion of the \smalltt{write()} call, the data is stored in operating
+system buffers, and can be written to disk in any order. Consider that the
+operating system chooses to write out the database data first, and the system
+crashes in the middle of the write. Since the database is partially updated, it
+is in an inconsistent state. Furthermore, since the journal data was not
+written to disk, the journal cannot be used to restore the database to a
+consistent state.
+
+Protocol $(c)$ solves this problem by using \smalltt{fsync()} to ensure that
+the journal is persisted \textit{before} writing to the database file. A system
+crash can only lead to one of two states. In the first case the journal was not
+completely persisted.  In this case the update failed and the database remains
+in the old, consistent state. In the second case the journal was completely
+persisted, but the database may not have been completely updated.  The
+journal is read, and the database updated to the new consistent state.
+In either case, the database remains consistent. Thus the protocol is not
+vulnerable to either process or system crashes.  
+
+As expected, there is a price for safety afforded by crash-consistent
+protocols. Protocol $(a)$ has the best performance among the three protocols;
+however, it is vulnerable to process and system crashes. Protocol $(c)$ is not
+vulnerable to crashes, but it is the slowest among the three protocols. This
+performance cost drives developers to use \smalltt{fsync()} sparingly, resulting
+in protocols that may perform well but are unsafe.

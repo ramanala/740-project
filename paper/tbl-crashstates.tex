@@ -1,0 +1,66 @@
+\begin{table}[!t]
+
+\vspace{0.1in}
+\begin{center}
+\setlength{\tmpa}{\tabcolsep}
+\setlength{\tabcolsep}{2pt}
+
+{\footnotesize
+\begin{tabular}{c|c|c|c|c}
+\textbf{\#} & \textbf{log} & \textbf{doc} & \textbf{E(n.old)?} & \textbf{E(n.new)?}  \\
+\hline
+
+
+0 & \smalltt{old} &  \fempty & \fexists & \fwrong %& ext2, ext3, ext4 (all
+%modes)
+\\
+\hline
+1 & \smalltt{new} &  \fempty & \fexists & \fwrong %& ext2, ext3, ext4 (all
+%modes)
+\\
+\hline
+2 & \smalltt{new} & \smalltt{data}  & \fexists & \fwrong %& ext2, ext3, ext4 (all
+%modes)  \\
+\\
+\hline
+3 & \smalltt{new} &  \smalltt{data}  & \fwrong & \fexists % & ext2, ext3, ext4 (all
+%modes)  \\
+\\
+\hline
+4 & \smalltt{old} &  \smalltt{data}  & \fwrong & \fexists % & ext2, ordered,
+%writeback modes  \\
+\\
+\hline
+5 & \smalltt{old} &  \fempty & \fexists & \fwrong % & ext2, ext3, ext4 (all
+%modes)  \\
+\\
+\hline
+6 & \smalltt{new} &  \fempty & \fexists & \fwrong % & ext2, ext3, ext4 (all
+%modes)  \\
+\\
+\hline
+7 & \smalltt{new} &  \fempty & \fwrong & \fexists % & ext2, ext4-ordered,
+%ext4-writeback \\
+\\
+\hline
+8 & \smalltt{new} &  \smalltt{data} & \fwrong & \fwrong % & ext2 \\ 
+\\
+\hline
+9 & \smalltt{new} & \smalltt{data} & \fexists & \fexists %& ext2 \\
+\\
+\hline
+10 & \smalltt{new} & \smalltt{password} & \fwrong & \fexists %& ext2,
+%ext3-writeback
+\\
+\end{tabular}
+}
+\end{center}
+\vspace{-0.2in}
+\mycaption{tbl-crashstates}{Crash States}{\footnotesize The table shows
+different crash states for the update protocol in Listing~\ref{lst-example}. The first two columns
+show the contents of the respective files. E(filename) indicates
+whether that file is present in the directory hierarchy.} 
+\vspace{-0.2in}
+\setlength{\tabcolsep}{\tmpa}
+\end{table}
+

@@ -1,0 +1,41 @@
+\section{Related Work}
+\label{sec-related}
+
+\newcommand{\EXPLODE}{\textsc{\fontsize{9.2}{5}\selectfont Explode}}
+\newcommand{\STACK}{\textsc{\fontsize{9.2}{5}\selectfont Stack}}
+
+Pillai \etal ~\cite{ThanuEtAl13-appconsistency-hotdep} identify the problem of
+application consistency depending on file-system behavior, but they are limited
+by manual testing, and cover only 2 applications.
+
+\EXPLODE~\cite{YangEtAl06-Explode} has a similar flavor to our work: the
+authors use \textit{in-situ} model checking to find crash vulnerabilities on
+different storage stacks. Our work differs from \EXPLODE\ in 4 significant
+ways. First, \EXPLODE\ requires the target storage stack to be fully
+implemented; \toolname\ only requires a model of the target storage stack, and
+can therefore be used to evaluate application-level consistency on top of
+proposed storage stacks, while they are still at the design stage. Second,
+\EXPLODE\ requires the user to carefully annotate complex file systems using
+\textit{choose()} calls; \toolname\ requires the user to only specify a
+high-level persistence model.  Third, \EXPLODE\ reconstructs crash states by
+tracking I/O as it moves from the application to the storage.  Although it is
+possible to use \EXPLODE\ to determine the root cause of a vulnerability, we
+believe it would be easier to do so using \toolname\, since \toolname\ checks
+for violation of specific persistence properties.  Furthermore, \EXPLODE\ stops
+at finding crash vulnerabilities; by helping produce protocol diagrams,
+\toolname\ contributes to understanding the protocol itself.
+
+Woodpecker~\cite{cui2013verifying} uses known patterns of source code lines
+that cause vulnerabilities to find whether the same pattern occurs in other
+applications. Our work is fundamentally different as \toolname\ intends to
+infer new patterns. 
+
+Our work is influenced by SQLite's internal
+testing tool~\cite{sqlite}. The tool works at an internal wrapper layer
+within SQLite, and is thus not helpful for generic testing.
+
+OptFS~\cite{Chidambaram+13-OptFS}, Featherstitch~\cite{Frost+07-GenFSDep}, and
+transactional file systems~\cite{GallagherEtAl05-LogSkipPaper,
+schmuck1991experience, fast09valor}, discuss new file system interfaces
+that will affect vulnerabilities. Our study can help inform the designs of new
+interfaces, by providing clear insights into what is missing in today's interfaces.

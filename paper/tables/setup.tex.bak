@@ -1,0 +1,17 @@
+\setlength{\tempa}{\tabcolsep}
+\setlength{\tabcolsep}{1pt}
+\begin{table*}[t]
+{\footnotesize
+\begin{tabular}{p{1.3cm}|p{3.0cm}|p{2.5cm}|p{1.5cm}|p{3.0cm}|p{4.0cm}}
+\hline
+& Guarantees & Explicit file system expectations & Workload configuration - performance loss & Workload & Checker \\ \hline
+Git & Fuzzy. Expected to work correctly on top of ordered file system, and with fsyncobjectfiles configuration. Manual recovery might be needed. & Fully Ordered. fsyncobjectfiles offers some protection against unordered. & 66 \% over default configuration & add two files; commit; & Remove lock files. status, show-ref, log, fsck, add, rm, commit, checkout. \\ \cline{1-4} \cline{6-6}
+Mercurial & No promises on system crash. Manual recovery procedures listed in documentation. Two types of corruption: dirstate and repository. & NA & - & & Remove lock files. Perform any manual documented recovery, short of cloning/restoring repository from backup. Two checkers - dirstate corruption, repository corruption. status, show-ref, log, fsck, add, rm, commit, checkout. \\ \hline
+BerkeleyDB & Durability, ordering, and consistency depending on workload parameters. & Atomic writes at page boundaries. Checksum option relieves assumption. & X\% over default configuration. & All workload parameters. Insert(enough key-value pairs to trigger one checkpoint). & Switch on checksums, open with log recovery enabled, and retrieve all key-value pairs; check for sanity. Insert (two pairs) \\ \hline
+LevelDB & Durability and ordering depending on workload parameters. & None. & - & All workload parameters. Insert(enough key-value pairs to trigger first-level compaction). & Do RecoverDB with checksum verification, retrieve all key-value pairs with checksum verification; check for sanity. Insert (two pairs) \\ \hline
+LMDB & Durability, ordering, and consistency depending on workload parameters. & None. & - & All workload parameters. Insert(two key-value pairs). & Retrieve all key-value pairs; check for sanity. Insert (two pairs). Call environment.stat(). \\ \hline
+\end{tabular}
+}
+\end{table*}
+\setlength{\tabcolsep}{\tempa}
+

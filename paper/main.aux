@@ -1,0 +1,155 @@
+\relax 
+\ifx\hyper@anchor\@undefined
+\global \let \oldcontentsline\contentsline
+\gdef \contentsline#1#2#3#4{\oldcontentsline{#1}{#2}{#3}}
+\global \let \oldnewlabel\newlabel
+\gdef \newlabel#1#2{\newlabelxx{#1}#2}
+\gdef \newlabelxx#1#2#3#4#5#6{\oldnewlabel{#1}{{#2}{#3}}}
+\AtEndDocument{\let \contentsline\oldcontentsline
+\let \newlabel\oldnewlabel}
+\else
+\global \let \hyper@last\relax 
+\fi
+
+\citation{chamberlin1981sqldata,mohan1986transaction,hagmann87-cedar,RosenblumOusterhout92-LFS}
+\citation{chamberlin1981sqldata,chamberlin1981history}
+\citation{mohan1986transaction}
+\citation{MohanEtAl92-Aries}
+\citation{Kuo96VerifyARIES,martin1997toward}
+\citation{hagmann87-cedar,Best00-JFS,Reiser04-ReiserFS,SweeneyEtAl96-XFS,Tweedie98-JournalingExt2,Chidambaram+13-OptFS}
+\citation{HitzEtAl94-WAFL,RosenblumOusterhout92-LFS,Sun06-ZFS,Mason07-btrfs}
+\citation{GangerPatt-Metadata94}
+\citation{Chidambaram+12-NoFS,Frost+07-GenFSDep}
+\citation{Lu+13-Evolution}
+\citation{sqlite}
+\citation{leveldb}
+\citation{posix2013}
+\citation{Tweedie98-JournalingExt2}
+\citation{ThanuEtAl13-appconsistency-hotdep,EatMyData}
+\citation{McKusickEtAl-FFS-84}
+\citation{ThanuEtAl13-appconsistency-hotdep}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}}
+\newlabel{sec-intro}{{1}{1}{Introduction\relax }{section.1}{}}
+\citation{git}
+\citation{bdb}
+\citation{leveldb}
+\citation{gdbm}
+\citation{lmdb}
+\citation{sqlite}
+\citation{postgres}
+\citation{hsqldb}
+\citation{git}
+\citation{mercurial}
+\citation{Shvachko+10-HDFS}
+\citation{zookeeper}
+\citation{vmwareplayer}
+\citation{tso-fsync}
+\citation{URLmassivefsthread}
+\citation{CardEtAl94-Ext2}
+\citation{Tweedie98-JournalingExt2,Tweedie00-Ext3Talk}
+\citation{TsoTweedie02-Ext23}
+\citation{Mason07-btrfs}
+\citation{SweeneyEtAl96-XFS}
+\citation{Reiser04-ReiserFS}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces {\bf  Git Crash Vulnerability. } {\em  \relax \fontsize  {9}{11}\selectfont  \abovedisplayskip 8.5\p@ plus3\p@ minus4\p@ \abovedisplayshortskip \z@ plus2\p@ \belowdisplayshortskip 4\p@ plus2\p@ minus2\p@ \def \leftmargin \leftmargini \parsep 4\p@ plus2\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 4\p@ plus2\p@ minus\p@ {\leftmargin \leftmargini \topsep 4\p@ plus2\p@ minus2\p@ \parsep 2\p@ plus\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip \relax \fontsize  {8}{9.5}\selectfont  \abovedisplayskip 6\p@ plus2\p@ minus4\p@ \abovedisplayshortskip \z@ plus\p@ \belowdisplayshortskip 3\p@ plus\p@ minus2\p@ \def \leftmargin \leftmargini \parsep 4\p@ plus2\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 4\p@ plus2\p@ minus\p@ {\leftmargin \leftmargini \topsep 3\p@ plus\p@ minus\p@ \parsep 2\p@ plus\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip The figure shows part of the Git update protocol. The arrows represent ordering dependencies: if the appends are not persisted before the rename, any further commits to the repository fail. We observe that whether the protocol is vulnerable or not varies even between configurations of the same file system. }}}{2}{figure.1}}
+\newlabel{fig-git-example}{{1}{2}{\label {fig-git-example}{\bf Git Crash Vulnerability. } {\em \small \footnotesize The figure shows part of the Git update protocol. The arrows represent ordering dependencies: if the appends are not persisted before the rename, any further commits to the repository fail. We observe that whether the protocol is vulnerable or not varies even between configurations of the same file system. }\relax }{figure.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Persistence Properties}{2}{section.2}}
+\newlabel{sec-pp}{{2}{2}{Persistence Properties\relax }{section.2}{}}
+\citation{PrabhakaranEtAl05-Usenix}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces {\bf  Crash States. } {\em  \relax \fontsize  {9}{11}\selectfont  \abovedisplayskip 8.5\p@ plus3\p@ minus4\p@ \abovedisplayshortskip \z@ plus2\p@ \belowdisplayshortskip 4\p@ plus2\p@ minus2\p@ \def \leftmargin \leftmargini \parsep 4\p@ plus2\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 4\p@ plus2\p@ minus\p@ {\leftmargin \leftmargini \topsep 4\p@ plus2\p@ minus2\p@ \parsep 2\p@ plus\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip \relax \fontsize  {8}{9.5}\selectfont  \abovedisplayskip 6\p@ plus2\p@ minus4\p@ \abovedisplayshortskip \z@ plus\p@ \belowdisplayshortskip 3\p@ plus\p@ minus2\p@ \def \leftmargin \leftmargini \parsep 4\p@ plus2\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 4\p@ plus2\p@ minus\p@ {\leftmargin \leftmargini \topsep 3\p@ plus\p@ minus\p@ \parsep 2\p@ plus\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip The figure shows the initial, final, and some of the intermediate crash states possible for the workload described in Section\nobreakspace  {}\ref  {sec-ppexample} . X represents garbage data in the files. Intermediate states \#A and \#B represent different kinds of atomicity violations, while intermediate state \#C represents an ordering violation. }}}{3}{figure.2}}
+\newlabel{fig-crashstates}{{2}{3}{\label {fig-crashstates}{\bf Crash States. } {\em \small \footnotesize The figure shows the initial, final, and some of the intermediate crash states possible for the workload described in Section~\ref {sec-ppexample} . X represents garbage data in the files. Intermediate states \#A and \#B represent different kinds of atomicity violations, while intermediate state \#C represents an ordering violation. }\relax }{figure.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}An Example}{3}{subsection.2.1}}
+\newlabel{sec-ppexample}{{2.1}{3}{An Example\relax }{subsection.2.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}The Block Order Breaker (BOB)}{3}{subsection.2.2}}
+\newlabel{sec-fs-properties}{{2.2}{3}{The Block Order Breaker (BOB)\relax }{subsection.2.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces {\bf  Persistence Properties. } {\em  \relax \fontsize  {9}{11}\selectfont  \abovedisplayskip 8.5\p@ plus3\p@ minus4\p@ \abovedisplayshortskip \z@ plus2\p@ \belowdisplayshortskip 4\p@ plus2\p@ minus2\p@ \def \leftmargin \leftmargini \parsep 4\p@ plus2\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 4\p@ plus2\p@ minus\p@ {\leftmargin \leftmargini \topsep 4\p@ plus2\p@ minus2\p@ \parsep 2\p@ plus\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip \relax \fontsize  {8}{9.5}\selectfont  \abovedisplayskip 6\p@ plus2\p@ minus4\p@ \abovedisplayshortskip \z@ plus\p@ \belowdisplayshortskip 3\p@ plus\p@ minus2\p@ \def \leftmargin \leftmargini \parsep 4\p@ plus2\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 4\p@ plus2\p@ minus\p@ {\leftmargin \leftmargini \topsep 3\p@ plus\p@ minus\p@ \parsep 2\p@ plus\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip The table shows atomicity and ordering persistence properties that we empirically determined for different configurations of file systems. X $\to $ Y is persisted before Y. [X,Y] $\to $ Z indicates that Y follows X in program order, and both become durable before Z. A $\times $\ indicates that we have a reproducible test case where the property fails in that file system. }}}{3}{table.1}}
+\newlabel{tbl-ppresults}{{1}{3}{\label {tbl-ppresults}{\bf Persistence Properties. } {\em \small \footnotesize The table shows atomicity and ordering persistence properties that we empirically determined for different configurations of file systems. X $\to $ Y is persisted before Y. [X,Y] $\to $ Z indicates that Y follows X in program order, and both become durable before Z. A \fwrong \ indicates that we have a reproducible test case where the property fails in that file system. }\relax }{table.1}{}}
+\citation{condit2009better}
+\citation{PrabhakaranEtAl05-Usenix}
+\citation{URLmassivefsthread}
+\citation{btrfs-mason}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.1}Atomicity}{4}{subsubsection.2.2.1}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2}Ordering}{4}{subsubsection.2.2.2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces {\bf  Detecting Vulnerabilities using \textsc  {\fontsize  {9.2}{5}\selectfont  Alice}. } {\em  \relax \fontsize  {9}{11}\selectfont  \abovedisplayskip 8.5\p@ plus3\p@ minus4\p@ \abovedisplayshortskip \z@ plus2\p@ \belowdisplayshortskip 4\p@ plus2\p@ minus2\p@ \def \leftmargin \leftmargini \parsep 4\p@ plus2\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 4\p@ plus2\p@ minus\p@ {\leftmargin \leftmargini \topsep 4\p@ plus2\p@ minus2\p@ \parsep 2\p@ plus\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip \relax \fontsize  {8}{9.5}\selectfont  \abovedisplayskip 6\p@ plus2\p@ minus4\p@ \abovedisplayshortskip \z@ plus\p@ \belowdisplayshortskip 3\p@ plus\p@ minus2\p@ \def \leftmargin \leftmargini \parsep 4\p@ plus2\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 4\p@ plus2\p@ minus\p@ {\leftmargin \leftmargini \topsep 3\p@ plus\p@ minus\p@ \parsep 2\p@ plus\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip The figure shows an overview of how \textsc  {\fontsize  {9.2}{5}\selectfont  Alice}\ converts user inputs into crash states and finally into crash vulnerabilities. The shaded grey boxes are inputs supplied by the user.}}}{4}{figure.3}}
+\newlabel{fig-overview}{{3}{4}{\label {fig-overview}{\bf Detecting Vulnerabilities using \toolname . } {\em \small \footnotesize The figure shows an overview of how \toolname \ converts user inputs into crash states and finally into crash vulnerabilities. The shaded grey boxes are inputs supplied by the user.}\relax }{figure.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Summary}{4}{subsection.2.3}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}The Application-Level Crash\\ Explorer (ALICE)}{4}{section.3}}
+\newlabel{sec-tool}{{3}{4}{The Application-Level Crash\\ Explorer (ALICE)\relax }{section.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Testing a Persistence Property}{4}{subsection.3.1}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces {\bf  Translating logical operations into micro-operations. } {\em  \relax \fontsize  {9}{11}\selectfont  \abovedisplayskip 8.5\p@ plus3\p@ minus4\p@ \abovedisplayshortskip \z@ plus2\p@ \belowdisplayshortskip 4\p@ plus2\p@ minus2\p@ \def \leftmargin \leftmargini \parsep 4\p@ plus2\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 4\p@ plus2\p@ minus\p@ {\leftmargin \leftmargini \topsep 4\p@ plus2\p@ minus2\p@ \parsep 2\p@ plus\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip \relax \fontsize  {8}{9.5}\selectfont  \abovedisplayskip 6\p@ plus2\p@ minus4\p@ \abovedisplayshortskip \z@ plus\p@ \belowdisplayshortskip 3\p@ plus\p@ minus2\p@ \def \leftmargin \leftmargini \parsep 4\p@ plus2\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 4\p@ plus2\p@ minus\p@ {\leftmargin \leftmargini \topsep 3\p@ plus\p@ minus\p@ \parsep 2\p@ plus\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip The table shows how logical operations such as append are translated into micro-operations. $N$ indicates the logical operation may be broken up into many block-sized micro-operations. }}}{5}{table.2}}
+\newlabel{tbl-log-microcode}{{2}{5}{\label {tbl-log-microcode}{\bf Translating logical operations into micro-operations. } {\em \small \footnotesize The table shows how logical operations such as append are translated into micro-operations. $N$ indicates the logical operation may be broken up into many block-sized micro-operations. }\relax }{table.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.1}Logical Operations}{5}{subsubsection.3.1.1}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.2}File-System Persistence Model}{5}{subsubsection.3.1.2}}
+\newlabel{lst-micro-example}{{1}{5}{\textbf {Annotated Update Protocol.} \textit {\footnotesize The listing shows an example update protocol. The micro-operations generated for each system call are shown along with their dependencies. The inode number of \smalltt {x2VC} is 12. The inode number of the root directory is 2. Some details of listed system calls have been elided for brevity. }\relax }{lstlisting.1}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {1}\textbf  {Annotated Update Protocol.} \textit  {\relax \fontsize  {8}{9.5}\selectfont  \abovedisplayskip 6\p@ plus2\p@ minus4\p@ \abovedisplayshortskip \z@ plus\p@ \belowdisplayshortskip 3\p@ plus\p@ minus2\p@ \def \leftmargin \leftmargini \parsep 4\p@ plus2\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 4\p@ plus2\p@ minus\p@ {\leftmargin \leftmargini \topsep 3\p@ plus\p@ minus\p@ \parsep 2\p@ plus\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip The listing shows an example update protocol. The micro-operations generated for each system call are shown along with their dependencies. The inode number of \texttt  {\fontsize  {8.7}{5}\selectfont  x2VC} is 12. The inode number of the root directory is 2. Some details of listed system calls have been elided for brevity. }}{5}{lstlisting.1}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.3}Constructing and Checking a Crash State}{6}{subsubsection.3.1.3}}
+\newlabel{sec-construct}{{3.1.3}{6}{Constructing and Checking a Crash State\relax }{subsubsection.3.1.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Persistence Properties Tested}{6}{subsection.3.2}}
+\newlabel{sec-pptested}{{3.2}{6}{Persistence Properties Tested\relax }{subsection.3.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Static Vulnerabilities}{6}{subsection.3.3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Implementation}{6}{subsection.3.4}}
+\newlabel{sec-implementation}{{3.4}{6}{Implementation\relax }{subsection.3.4}{}}
+\citation{bdb}
+\citation{leveldb}
+\citation{gdbm}
+\citation{lmdb}
+\citation{sqlite}
+\citation{postgres}
+\citation{hsqldb}
+\citation{git}
+\citation{mercurial}
+\citation{Shvachko+10-HDFS}
+\citation{zookeeper}
+\citation{vmwareplayer}
+\citation{ThanuEtAl13-appconsistency-hotdep}
+\citation{git-linus}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5}Limitations}{7}{subsection.3.5}}
+\newlabel{sec-discuss}{{3.5}{7}{Limitations\relax }{subsection.3.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Application Vulnerabilities}{7}{section.4}}
+\newlabel{sec-vul-study}{{4}{7}{Application Vulnerabilities\relax }{section.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Workloads and Checkers}{7}{subsection.4.1}}
+\newlabel{sec-workload}{{4.1}{7}{Workloads and Checkers\relax }{subsection.4.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Overview}{7}{subsection.4.2}}
+\newlabel{sec-case}{{4.2}{7}{Overview\relax }{subsection.4.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.1}Databases and Key-Value Stores}{7}{subsubsection.4.2.1}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces \textbf  {Protocol Diagrams.} {\relax \fontsize  {8}{9.5}\selectfont  \abovedisplayskip 6\p@ plus2\p@ minus4\p@ \abovedisplayshortskip \z@ plus\p@ \belowdisplayshortskip 3\p@ plus\p@ minus2\p@ \def \leftmargin \leftmargini \parsep 4\p@ plus2\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 4\p@ plus2\p@ minus\p@ {\leftmargin \leftmargini \topsep 3\p@ plus\p@ minus\p@ \parsep 2\p@ plus\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip \textit  { (a), (b), and (c) show the modularized update protocol for Git, ZooKeeper, and BerkeleyDB-BTree respectively. Repeated operations in a protocol are shown next to each operation, and if the number of repetitions can vary, the variation is specified. Ordering dependencies are indicated with arrows, and dependencies between modules are indicated by the numbers on the arrows, corresponding to line numbers in modules. Dotted, vertical arrows ending at a horizontal line represent ordering dependencies already enforced using sync operations in the application. Dark, bold arrows represent new ordering dependencies discovered; \textbf  {d} on the arrow represents a durability requirement. Operations inside dark brackets must be persisted together atomically. }}}}{8}{figure.4}}
+\newlabel{fig-prot}{{4}{8}{\label {fig-prot}\textbf {Protocol Diagrams.} {\footnotesize \textit { (a), (b), and (c) show the modularized update protocol for Git, ZooKeeper, and BerkeleyDB-BTree respectively. Repeated operations in a protocol are shown next to each operation, and if the number of repetitions can vary, the variation is specified. Ordering dependencies are indicated with arrows, and dependencies between modules are indicated by the numbers on the arrows, corresponding to line numbers in modules. Dotted, vertical arrows ending at a horizontal line represent ordering dependencies already enforced using sync operations in the application. Dark, bold arrows represent new ordering dependencies discovered; \textbf {d} on the arrow represents a durability requirement. Operations inside dark brackets must be persisted together atomically. }}\relax }{figure.4}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.2}Version Control Systems}{8}{subsubsection.4.2.2}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.3}Virtualization and Distributed Systems}{8}{subsubsection.4.2.3}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces \textbf  {Vulnerabilities - Types and Consequences.} \textit  { {\relax \fontsize  {8}{9.5}\selectfont  \abovedisplayskip 6\p@ plus2\p@ minus4\p@ \abovedisplayshortskip \z@ plus\p@ \belowdisplayshortskip 3\p@ plus\p@ minus2\p@ \def \leftmargin \leftmargini \parsep 4\p@ plus2\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 4\p@ plus2\p@ minus\p@ {\leftmargin \leftmargini \topsep 3\p@ plus\p@ minus\p@ \parsep 2\p@ plus\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip The table shows the discovered static vulnerabilities categorized by the type of persistence property and consequences. The number of unique vulnerabilities for an application can be different from the sum of the categorized vulnerabilities, since the same source code lines can exhibit different behavior. SQLite-WAL is not shown because we did not find any vulnerabilities. \textbf  {*} The atomicity vulnerability in Leveldb1.10 corresponds to multiple mmap() writes. \textbf  {$^{+}$} There are 2 fsck-only and 1 reflog-only errors in Git. \textbf  {{\relax \fontsize  {7}{8}\selectfont  $^{\#}$}} These are known, documented failures. } }}}{9}{table.3}}
+\newlabel{tbl-vuls}{{3}{9}{\textbf {Vulnerabilities - Types and Consequences.} \textit { {\footnotesize The table shows the discovered static vulnerabilities categorized by the type of persistence property and consequences. The number of unique vulnerabilities for an application can be different from the sum of the categorized vulnerabilities, since the same source code lines can exhibit different behavior. SQLite-WAL is not shown because we did not find any vulnerabilities. \textbf {*} The atomicity vulnerability in Leveldb1.10 corresponds to multiple mmap() writes. \textbf {$^{+}$} There are 2 fsck-only and 1 reflog-only errors in Git. \textbf {{\scriptsize $^{\#}$}} These are known, documented failures. } }\relax }{table.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Vulnerabilities Found}{9}{subsection.4.3}}
+\newlabel{sec-vuls}{{4.3}{9}{Vulnerabilities Found\relax }{subsection.4.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Common Patterns}{9}{subsection.4.4}}
+\newlabel{sec-patterns}{{4.4}{9}{Common Patterns\relax }{subsection.4.4}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.1}Atomicity across System Calls}{9}{subsubsection.4.4.1}}
+\citation{URLmassivefsthread}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.2}Atomicity within System Calls}{10}{subsubsection.4.4.2}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.3}Ordering between System Calls}{10}{subsubsection.4.4.3}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.4}Durability}{10}{subsubsection.4.4.4}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.5}Summary}{10}{subsubsection.4.4.5}}
+\citation{btrfs-mason}
+\citation{URLmassivefsthread}
+\citation{PrabhakaranEtAl05-Usenix}
+\citation{LWN1}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces \textbf  {Vulnerabilities on Current File Systems.} {\relax \fontsize  {8}{9.5}\selectfont  \abovedisplayskip 6\p@ plus2\p@ minus4\p@ \abovedisplayshortskip \z@ plus\p@ \belowdisplayshortskip 3\p@ plus\p@ minus2\p@ \def \leftmargin \leftmargini \parsep 4\p@ plus2\p@ minus\p@ \topsep 8\p@ plus2\p@ minus4\p@ \itemsep 4\p@ plus2\p@ minus\p@ {\leftmargin \leftmargini \topsep 3\p@ plus\p@ minus\p@ \parsep 2\p@ plus\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip \textit  { (a) describes the simple file system models used. (b) shows the number of vulnerabilities that occur on current file systems. Applications that do not fail in the considered file systems are omitted. Legend: DO: directory operations. AG: granularity of size-atomicity. CA: Content-Atomicity. }}}}{11}{table.4}}
+\newlabel{tbl-fs-impact}{{4}{11}{\label {tbl-fs-impact}\textbf {Vulnerabilities on Current File Systems.} {\footnotesize \textit { (a) describes the simple file system models used. (b) shows the number of vulnerabilities that occur on current file systems. Applications that do not fail in the considered file systems are omitted. Legend: DO: directory operations. AG: granularity of size-atomicity. CA: Content-Atomicity. }}\relax }{table.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Vulnerabilities On Current File Systems}{11}{subsection.4.5}}
+\newlabel{sec-currentfs}{{4.5}{11}{Vulnerabilities On Current File Systems\relax }{subsection.4.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6}Evaluating New File-System Designs}{11}{subsection.4.6}}
+\newlabel{sec-twojournal}{{4.6}{11}{Evaluating New File-System Designs\relax }{subsection.4.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Discussion}{11}{section.5}}
+\newlabel{sec-discussion}{{5}{11}{Discussion\relax }{section.5}{}}
+\citation{ThanuEtAl13-appconsistency-hotdep}
+\citation{YangEtAl06-Explode}
+\citation{cui2013verifying}
+\citation{sqlite}
+\citation{Chidambaram+13-OptFS}
+\citation{Frost+07-GenFSDep}
+\citation{GallagherEtAl05-LogSkipPaper,schmuck1991experience,fast09valor}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Related Work}{12}{section.6}}
+\newlabel{sec-related}{{6}{12}{Related Work\relax }{section.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusion}{12}{section.7}}
+\newlabel{sec-conclude}{{7}{12}{Conclusion\relax }{section.7}{}}
+\bibstyle{plain}
+\bibdata{all-defs,all,local,local-vijay,personal,prev,all-confs}

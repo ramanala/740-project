@@ -1,0 +1,49 @@
+\begin{figure}[!t]
+\vspace{-0.2in}
+{\scriptsize 
+\begin{alltt}
+lockfile.c:
+int commit_lock_file(struct lock_file *lk) \{
+    ...
+    result_file[i] = 0;
+\textit{    // Fix for dependency between (b) 2-3, (c) 2-5}
+\textbf{+   fsync(lk->filename);} 
+    ...
+\textit{    // Fix for dependency between (b) 3-4, (c) 6-7}
+\textbf{+   fsync(parent(lk->filename));}
+    lk->filename[0] = 0;
+    ...
+\}
+
+sha1_file.c:
+static int create_tmpfile(char *buffer, ...) \{
+    ...
+\textit{    // Fix for dependency between (a) 0 and (b) 3}
+\textbf{+   fsync(parent(buffer));} 
+    /* Try again */
+    strcpy(buffer + dirlen - 1, "/tmp_obj_XXXXXX");
+    ...    
+\}
+
+int move_temp_to_file(const char *tmpfile, ..) \{
+    ...
+out:
+    if (adjust_shared_perm(filename))
+        return error(...)
+\textit{    // Fix for dependency between (a) 2 and (b) 3}
+\textbf{+   fsync(parent(filename));} 
+    ...
+\}
+\end{alltt}
+}
+\vspace{-0.2in}
+\begin{spacing}{0.90}
+\mycaption{fig-git-patch}{Patching Git Vulnerabilities}{\footnotesize The figure shows the
+lines of code that need to be added to Git to remove the vulnerabilities to
+\smalltt{git add} shown in Figure~\ref{fig-git}. We observe that very few lines
+of code are necessary; small patches like these are possible because
+\toolname\ pinpoints the system calls issued and source lines involved.
+}
+\end{spacing}
+\vspace{-0.2in}
+\end{figure}

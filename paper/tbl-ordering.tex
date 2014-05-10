@@ -1,0 +1,32 @@
+\begin{table}[!t]
+\begin{center}
+{\footnotesize
+\begin{tabular}{c|c|c|c|c}
+% Header
+\textbf{Application} & \textbf{W} & \textbf{A} & \textbf{R} & \textbf{U} \\
+\hline
+BDB-BTREE & 1(5) & 1(1) & &  \\   
+\hline
+BDB-Hash & & 1(7) & &  \\    
+\hline
+LevelDB-1.10 & 3(3) & & &  2(4) \\                                  
+\hline
+LevelDB-1.15 & & 3(16) & &  \\                                  
+\hline
+Git & & 2(2) &  3(8) & \\                                          
+\hline
+Mercurial &  & 4(9) &  5(20) & \\      
+\hline
+HSqlDB & & 1(1) & 1(1) & 3(5) \\                                        
+\end{tabular}
+}
+\end{center}
+\vspace{-0.2in}
+\mycaption{tbl-ordering}{Ordering Vulnerabilities Between System Calls}{\footnotesize
+The table shows the split-up of ordering vulnerabilities within system calls.
+If there is a pair (A, B) where A must be persisted before B, it counts as
+one vulnerability for B in this table. Legend: W -- Write. A -- Append. T --
+Truncate. R -- Rename. U -- Unlink. 
+} 
+\vspace{-0.1in}
+\end{table}

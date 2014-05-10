@@ -1,0 +1,28 @@
+\begin{lstlisting}[float=t, caption = {\textbf{Generated Micro-code. }{\em
+\small The figure shows the micro-code generated for the system call trace
+shown above. Note that while \smalltt{open()} and \smalltt{fsync()} cause
+changes to book-keeping and ordering dependencies, they do not generate
+micro-code. Inode 2 correspond to the root directory. Inode 12 corresponds to
+the file \smalltt{x2VC}.}}, label = {lst-microcode}, escapechar=!]
+NOP
+!\vspace{-15pt}!
+!\hrulefill!
+write(inode=12, data="f", offset=0)
+write(inode=12, data="o", offset=1)
+write(inode=12, data="o", offset=2)
+!\vspace{-15pt}!
+!\hrulefill!
+NOP
+!\vspace{-15pt}!
+!\hrulefill!
+write(inode=12, data="b", offset=3)
+write(inode=12, data="a", offset=4)
+write(inode=12, data="r", offset=5)
+!\vspace{-15pt}!
+!\hrulefill!
+link(dirinode=2, direntry="file", inode=12)
+!\vspace{-15pt}!
+!\hrulefill!
+stdout("Foo bar recorded.")
+\end{lstlisting}
+

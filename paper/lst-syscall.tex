@@ -1,0 +1,13 @@
+\begin{lstlisting}[float=t, caption = {\textbf{System call trace for a toy
+update protocol}. {\em \small The protocol writes a file, syncs it, writes the
+file again, and links it a new location. Finally it records the operation as
+done on stdout.} }, label = {lst-syscall}, escapechar=!]
+
+1 open(pathname="/x2VC") = 10
+2 pwrite(fd=10, offset=0, data="foo", size=3)
+3 fsync(fd=10)
+4 pwrite(fd=10, offset=3, data="bar", size=3)
+5 link(oldpath="/x2VC", newpath="/file")
+6 pwrite(fd=1, "Foo bar recorded.",17)  
+
+\end{lstlisting}

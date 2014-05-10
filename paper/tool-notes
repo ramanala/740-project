@@ -1,0 +1,78 @@
+What do we do need to find vulnerabilities?
+- vulnerability when application invariant fails on one disk state
+- 
+
+- if an application invariant just fails on a disk state, is that just a bug?
+- 
+
+
+- V when invariant fails on a given disk state due to a persistence property
+  being violated. 
+
+
+1. Application invariants
+
+
+Top level idea: find disk states where application invariants fail.
+
+Finding disk states: generate disk states using an abstract file-system model,
+an initial disk state, and an application workload.
+
+Checking if application invariants fail: modelling applications is hard, we run 
+the application itself to check.
+- complexity here: the disk state has a durability condition associated with
+  it.
+
+
+User-visible invariants (application invariants?) [ordered async puts]
+|
+Internal application invariants [log1 should be persisted before log2]
+|
+Persistence Properties [A_i -> A-j] 
+
+
+crash vul -> update protocol -> system calls -> get the trace.
+
+Why microcode?
+- because we want to able to write to files without the creat of the file
+- deeper reason:
+    - normally, access to a resource (file) is preceded by the creation of a pointer
+      to the resource (dir entry). However, since the pointer creation is a
+      seperate write from the write to the resource, there can be a
+      scenario wherei only the write was durable. The resource would still be
+      accessible with the new data if there are other pointers to it.
+      
+    - in order to recreate this scenario via replay, we need to be able to
+      write to a resource without a pointer to it. 
+
+- because we are using system calls to simulate block level I/O
+
+principle: make them as independent as possible?
+
+Why not block I/O?
+- because block I/O already has elements of the file-system implementation in
+  it. Block I/O for the same systems calls would be different in ext2 vs ext4.
+  Block I/O replay is already constrained by the file-system implementation.        
+
+ Another dependency is due to \textit{context}. System calls use file
+descriptors, which hide a lot of the context: the file pointer, the size of the
+file, etc.     
+
+Implementation Notes
+====================
+- To make it feel "real"
+- Lines of code
+    - 3500 lines of python code
+- Developed using?
+    - Python
+- Major implementation issues?
+    - Memory access trace
+    - Multi-thread/process?
+- optimizations can come here.
+
+Properties
+==========
+- Sound
+- User space tool
+- Can model a lot of different file systems, extendable to new file systems
+

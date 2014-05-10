@@ -1,0 +1,41 @@
+\begin{table}[!t]
+\begin{center}
+\begin{tabular}{c|c}
+\iffalse
+\textbf{System Call} & \textbf{Intermediate States} \\
+\fi
+\textbf{I/O Aspect} & \textbf{Persistence Property} \\
+\hline
+\iffalse
+write & \\
+\hline
+trunc & \\
+\hline
+append & \\
+\hline
+link & \\
+\hline
+unlink & \\
+\hline
+rename & \\
+\hline
+mkdir & \\
+\hline
+rmdir & \\
+\hline
+\fi
+Atomicity & $|W_i|\ \forall\ size(W_i) = 1$  \\
+          & $|Dir_i|\ \forall\ Dir \neq\ R$ \\   
+\hline
+Ordering & ${X}^{a}_i \to {S}^{a}_k$ \\
+         & ${S}_i \to {X}_k$ \\
+\end{tabular}
+\end{center}
+\vspace{-0.2in}
+\mycaption{tbl-fsmodel}{File-System Model}{\footnotesize
+The table lists the persistence properties of the abstract file system used by
+\toolname. Legend: $W$ -- overwrite. $Dir$ -- directory operation. $R$ --
+rename. $X$ -- generic operation. $S$ -- sync operation. The subscript denotes
+position in program order. The superscript denotes file that is operated on.}
+\vspace{-0.1in}
+\end{table}

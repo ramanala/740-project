@@ -1,0 +1,89 @@
+\section{Discussion}
+\label{sec-discussion}
+
+% We have presented a detailed study of the crash vulnerabilities occurring in
+% application across different domains.
+Our study reveals why crash
+vulnerabilities occur so commonly even among widely used applications.
+
+% Update protocols are spread across modules
+% prob: same
+% sol: use Alice to obtain the logical rep; draw protocol diagrams
+We found that application update protocols are complex and hard to isolate and
+understand. Many protocols are layered and spread over
+multiple files. Modules are also associated with other
+complex functionality (e.g., ensuring thread isolation). This leads to problems
+that are obvious with a bird's eye view of the protocol:
+for example, HSQLDB's protocol has 3 consecutive \fsyncSC\ calls to the
+same file. \toolname\ helps solve this problem by making it easy for developers
+to obtain logical representations of update protocols such as
+Figure~\ref{fig-prot}. 
+
+% Recovery
+% prob: Untested, non-optimal (loses forward progress), not expert-level
+% sol: testing recovery is hard -> we make it much easier.
+% esp testing for durability is non-intuitive.
+% Verification utilities are buggy.
+% prob: same as above
+% more prob: sometime corrupt the database itself.
+Another factor contributing to crash vulnerabilities is poorly written,
+untested recovery code. In BerkeleyDB and LevelDB, we find vulnerabilities that
+should be prevented by correct implementations of the documented update
+protocols. Some recovery code is non-optimal: potentially recoverable data is
+lost in several applications (e.g., HSQLDB, Berkeley, Git). Mercurial and
+LevelDB provide utilities to verify or recover application data; we find these
+utilities are hard to configure and error-prone. For example, LevelDB's
+recovery command works correctly only when (seemingly) unrelated configuration
+options (\textit{paranoid checksums}) are setup properly, and sometimes ends up
+\textit{further} corrupting the data-store. We believe these problems are a
+direct consequence of the recovery code being infrequently executed and
+insufficiently tested. With \toolname, recovery code can be tested on many
+different corner cases that would occur rarely in practice.    
+
+% Corner cases.
+% Sol: more intricate workloads.
+% Tell that story here.
+% "Shallow" and "deep"
+% Tie in performance here? Say that we tested complex workloads for simple
+% workloads, but that it would take more time for applications like HFDS? 
+%Apart from discovering bugs in recovery code, corner cases also help discover
+%crash vulnerabilities. For example, some of Mercurial's vulnerabilities are
+%identified only if the append crosses a block boundary. Complex workloads
+%produce crash states with such corner cases far more than simpler workloads.
+%In this work, we started with simple workloads and iteratively improved them
+%until the complex workloads could detect vulnerabilities quickly.
+
+% Persistence properties are complex, not well-specified
+% Users can now specify them in Alice.
+%We find that persistence properties of file systems are complex and not
+%explicitly specified. If the persistence properties were well specified and
+%publicly available, we believe it would help reduce crash vulnerabilities.
+%Understanding the exact properties of a file system is hard and error-prone;
+%however, once we understood the file system, we could specify the model of file
+%systems we studied in Section~\ref{sec-vul-study} in under 50 lines of code in \toolname. 
+
+% Reporting crash vulnerabilities is hard.
+% Convincing is hard.
+% Once Alice is released, the input and parameters to Alice can be shipped -
+% this would allow them to reproduce the vulnerability exactly. 
+We found that convincing developers about crash vulnerabilities was hard, since
+the vulnerabilities are hard to
+reproduce. More troubling is the general mistrust surrounding such bug reports.
+Usually, developers are suspicious that the underlying storage stack might not
+respect \fsyncSC\ calls, or that the drive might be corrupt. We hence believe
+that most vulnerabilities that occur in the wild go unreported, or get
+associated with a wrong root cause. % We plan to release \toolname\ to help
+\toolname\ can easily
+reproduce crash vulnerabilities. 
+
+% Documentation is buggy, unclear, and not up-to-date
+% prob: devs say one thing, doc say another
+% sol: if users run Alice, they find guarantees directly.
+Out-of-date, unclear documentation of application guarantees contributes to the
+confusion about crash vulnerabilities. During discussions with developers about
+durability vulnerabilities, we found that SQLite, which proclaims itself as
+fully ACID-complaint, does not provide durability (even optionally) 
+by default though the documentation suggests it does. Similarly,
+GDBM's \smalltt{GDBM\_SYNC} flag \textit{does not} ensure durability. Users can
+employ \toolname\ to determine guarantees directly from the code, bypassing the
+problem of bad documentation.

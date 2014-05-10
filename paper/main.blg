@@ -1,0 +1,102 @@
+This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
+The top-level auxiliary file: main.aux
+The style file: plain.bst
+I couldn't open database file all-defs.bib
+---line 155 of file main.aux
+ : \bibdata{all-defs
+ :                  ,all,local,local-vijay,personal,prev,all-confs}
+I'm skipping whatever remains of this command
+I found no database files---while reading file main.aux
+Warning--I didn't find a database entry for "chamberlin1981sqldata"
+Warning--I didn't find a database entry for "mohan1986transaction"
+Warning--I didn't find a database entry for "hagmann87-cedar"
+Warning--I didn't find a database entry for "RosenblumOusterhout92-LFS"
+Warning--I didn't find a database entry for "chamberlin1981history"
+Warning--I didn't find a database entry for "MohanEtAl92-Aries"
+Warning--I didn't find a database entry for "Kuo96VerifyARIES"
+Warning--I didn't find a database entry for "martin1997toward"
+Warning--I didn't find a database entry for "Best00-JFS"
+Warning--I didn't find a database entry for "Reiser04-ReiserFS"
+Warning--I didn't find a database entry for "SweeneyEtAl96-XFS"
+Warning--I didn't find a database entry for "Tweedie98-JournalingExt2"
+Warning--I didn't find a database entry for "Chidambaram+13-OptFS"
+Warning--I didn't find a database entry for "HitzEtAl94-WAFL"
+Warning--I didn't find a database entry for "Sun06-ZFS"
+Warning--I didn't find a database entry for "Mason07-btrfs"
+Warning--I didn't find a database entry for "GangerPatt-Metadata94"
+Warning--I didn't find a database entry for "Chidambaram+12-NoFS"
+Warning--I didn't find a database entry for "Frost+07-GenFSDep"
+Warning--I didn't find a database entry for "Lu+13-Evolution"
+Warning--I didn't find a database entry for "sqlite"
+Warning--I didn't find a database entry for "leveldb"
+Warning--I didn't find a database entry for "posix2013"
+Warning--I didn't find a database entry for "ThanuEtAl13-appconsistency-hotdep"
+Warning--I didn't find a database entry for "EatMyData"
+Warning--I didn't find a database entry for "McKusickEtAl-FFS-84"
+Warning--I didn't find a database entry for "git"
+Warning--I didn't find a database entry for "bdb"
+Warning--I didn't find a database entry for "gdbm"
+Warning--I didn't find a database entry for "lmdb"
+Warning--I didn't find a database entry for "postgres"
+Warning--I didn't find a database entry for "hsqldb"
+Warning--I didn't find a database entry for "mercurial"
+Warning--I didn't find a database entry for "Shvachko+10-HDFS"
+Warning--I didn't find a database entry for "zookeeper"
+Warning--I didn't find a database entry for "vmwareplayer"
+Warning--I didn't find a database entry for "tso-fsync"
+Warning--I didn't find a database entry for "URLmassivefsthread"
+Warning--I didn't find a database entry for "CardEtAl94-Ext2"
+Warning--I didn't find a database entry for "Tweedie00-Ext3Talk"
+Warning--I didn't find a database entry for "TsoTweedie02-Ext23"
+Warning--I didn't find a database entry for "PrabhakaranEtAl05-Usenix"
+Warning--I didn't find a database entry for "condit2009better"
+Warning--I didn't find a database entry for "btrfs-mason"
+Warning--I didn't find a database entry for "git-linus"
+Warning--I didn't find a database entry for "LWN1"
+Warning--I didn't find a database entry for "YangEtAl06-Explode"
+Warning--I didn't find a database entry for "cui2013verifying"
+Warning--I didn't find a database entry for "GallagherEtAl05-LogSkipPaper"
+Warning--I didn't find a database entry for "schmuck1991experience"
+Warning--I didn't find a database entry for "fast09valor"
+You've used 0 entries,
+            2118 wiz_defined-function locations,
+            575 strings with 5205 characters,
+and the built_in function-call counts, 18 in all, are:
+= -- 0
+> -- 0
+< -- 0
++ -- 0
+- -- 0
+* -- 2
+:= -- 7
+add.period$ -- 0
+call.type$ -- 0
+change.case$ -- 0
+chr.to.int$ -- 0
+cite$ -- 0
+duplicate$ -- 0
+empty$ -- 1
+format.name$ -- 0
+if$ -- 1
+int.to.chr$ -- 0
+int.to.str$ -- 0
+missing$ -- 0
+newline$ -- 3
+num.names$ -- 0
+pop$ -- 0
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 1
+stack$ -- 0
+substring$ -- 0
+swap$ -- 0
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 0
+while$ -- 0
+width$ -- 0
+write$ -- 2
+(There were 2 error messages)

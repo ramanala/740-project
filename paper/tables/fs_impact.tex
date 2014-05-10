@@ -1,0 +1,61 @@
+\setlength{\tempa}{\tabcolsep}
+\setlength{\tabcolsep}{1pt}
+\begin{table}[t]
+\begin{subtable}[t]{0.27\textwidth}
+	{\footnotesize
+	\begin{tabular}{>{\scriptsize}l|>{\scriptsize}p{2.94cm}|@{}>{\scriptsize}p{0.38cm}@{}@{}>{\scriptsize}p{0.38cm}@{}@{}>{\scriptsize}p{0.3cm}@{}}
+	%\hline
+	 & \multirow{2}{3.0cm}{\hspace{1.1cm}\textbf{Ordering}}&\multicolumn{3}{c}{\scriptsize\textbf{Atomicity}}\\ \cline{3-5}
+	 &  & \multicolumn{1}{@{}c@{}|}{\scriptsize DO} & \multicolumn{1}{@{}c@{}|}{\scriptsize AG}  & \multicolumn{1}{@{}c@{}}{\scriptsize CA}  \\ \hline
+	\rotatebox{90}{\hspace{-0.55cm}ext3-w} & Dir ops and file-size changes ordered among themselves, and before sync operations. & \checkmark & 4K & \fwrong \\ \hline
+	\rotatebox{90}{\hspace{-0.70cm}ext3-o} & Dir ops, appends, truncates ordered among themselves. Overwrites before non-overwrites, all before sync. & \checkmark & 4K & \checkmark \\ \hline
+	\rotatebox{90}{\hspace{-0.05cm}ext3-j\hspace{0.05cm}} & All operations are ordered. & \checkmark & 4K & \checkmark \\ \hline
+	\rotatebox{90}{\hspace{-0.55cm}ext4-o} & Safe rename, safe file flush, directory operations ordered among themselves & \checkmark & 4K & \checkmark \\ \hline
+	\rotatebox{90}{\hspace{-0.05cm}btrfs\hspace{0.05cm}} & Safe rename, safe file flush & \checkmark & 4K & \checkmark \\
+	\end{tabular}
+	}
+	\centering
+	\footnotesize\textit{(a)}
+	\vspace{-0.08in}
+    \end{subtable}
+    ~~
+    \begin{subtable}[t]{0.19\textwidth}
+	{\footnotesize
+	\begin{tabular}{>{\scriptsize}l|ccccc}
+%	\multicolumn{6}{c}{}\\
+%	\multicolumn{6}{c}{}\\
+	& \rotatebox{90}{\textbf{ext3-w}}
+	& \rotatebox{90}{\textbf{ext3-o}}
+	& \rotatebox{90}{\textbf{ext3-j}}
+	& \rotatebox{90}{\textbf{ext4-o}}
+	& \rotatebox{90}{\textbf{btrfs}}
+	\\ \hline
+	BDB-BTree & 3 & 1 & 1 & 1 & 1 \\ \hline
+	BDB-Hash & 4 & 1 & 1 & 1 & 2 \\ \hline
+	Leveldb1.10  & 2 & 1 & 1 & 1 & 4 \\ \hline
+	Leveldb1.15  & 1 &  &  &  & 3 \\ \hline
+	%LMDB &  &  &  &  &  \\ \hline
+	GDBM  & 2 & 2 & 1 & 2 & 3 \\ \hline
+	Git  & 2 & 2 & 2 & 2 & 5 \\ \hline
+	Mercurial & 3 & 2 & 2 & 4 & 6 \\ \hline
+	HSQLDB  &  &  &  &  & 4 \\ \hline
+	%Sqlite-WAL &  &  &  &  &  \\ \hline
+	Sqlite-Roll & 1 & 1 & 1 & 1 & 1 \\ \hline
+	%VMWare &  &  &  &  &  \\ \hline
+	%PostgreSQL &  &  &  &  &  \\ \hline
+	HDFS &  &  &  &  & 1 \\ \hline
+	ZooKeeper & 1 & 1 &  & 1 & 1 \\ \hline
+	Total & 19 & 11 & 9 & 13 & 31 \\
+	\end{tabular}
+	}
+	\centering
+	\footnotesize\textit{(b)}
+%	\vspace{1mm}
+	\vspace{-0.08in}
+    \end{subtable}
+    \caption{\label{tbl-fs-impact}\textbf{Vulnerabilities on Current File Systems.} {\footnotesize\textit{
+    	(a) describes the simple file system models used.  (b) shows the number of vulnerabilities that occur on current file systems. Applications that do not fail in the considered file systems are omitted. Legend: DO: directory operations. AG: granularity of size-atomicity. CA: Content-Atomicity.  }}}
+\end{table}
+
+\setlength{\tabcolsep}{\tempa}
+

@@ -1,0 +1,74 @@
+\begin{table}[!t]
+\begin{center}
+\setlength{\tmpa}{\tabcolsep}
+\setlength{\tabcolsep}{0.7pt}
+{\footnotesize
+\begin{tabular}{l|l*{15}c}
+%{\multirow{3}{*}{\bf PCP}} & {\multicolumn{10}{c}{\bf Filesystem}} \\ 
+%\cline{2-8}
+\textbf{Persistence Property} & \multicolumn{15}{c}{\bf File system}  \\[2ex]
+\hline
+%\hline \\ [-2ex]
+& \rotatebox{90}{ext2}
+& \rotatebox{90}{ext2-sync}
+& \rotatebox{90}{ext3-writeback}
+& \rotatebox{90}{ext3-ordered}
+& \rotatebox{90}{ext3-datajournal}
+& \rotatebox{90}{ext4-writeback}
+& \rotatebox{90}{ext4-ordered}
+& \rotatebox{90}{ext4-nodelalloc}
+& \rotatebox{90}{ext4-datajournal}
+& \rotatebox{90}{btrfs}
+& \rotatebox{90}{xfs}
+& \rotatebox{90}{xfs-wsync}
+& \rotatebox{90}{reiserfs-nolog}
+& \rotatebox{90}{reiserfs-writeback}
+& \rotatebox{90}{reiserfs-ordered}
+& \rotatebox{90}{reiserfs-datajournal~}
+\\ 
+\hline
+% Atomicity properties
+\textbf{Atomicity} & & & & & & & & & & & & & & & \\
+\hline
+Single sector overwrite & & & & & & & & & & & & & & & \\
+\hline
+Single sector append  & \fwrong & &  \fwrong & & &  \fwrong & & & & & & & &  \fwrong & & \\
+\hline
+Single block overwrite & \fwrong &  \fwrong &  \fwrong &  \fwrong & &  \fwrong &  \fwrong &  \fwrong & &  &  \fwrong &  \fwrong &  \fwrong &  \fwrong &  \fwrong & \\
+\hline
+Single block append & \fwrong &  \fwrong &  \fwrong & & &  \fwrong & & & & & & &  \fwrong &  \fwrong & & \\
+\hline
+Multi-block append/writes~ & \fwrong &  \fwrong &  \fwrong &  \fwrong &  \fwrong &  \fwrong &  \fwrong &  \fwrong &  \fwrong &  \fwrong &  \fwrong &  \fwrong &  \fwrong &  \fwrong &  \fwrong &  \fwrong \\
+\hline
+Multi-block prefix append~ &  \fwrong & \fwrong &  \fwrong & & &  \fwrong & & &
+& & & & \fwrong &  \fwrong & & \\
+\hline
+Directory op & \fwrong & \fwrong & & & & & & & &  & & & \fwrong & & & \\
+\hline
+% Ordering properties
+\textbf{Ordering} & & & & & & & & & & & & & & & \\
+\hline
+Overwrite $\to$ Any op~ &  \fwrong &  &  \fwrong &  \fwrong & &  \fwrong &  \fwrong &  \fwrong & & &  \fwrong &  \fwrong &  \fwrong &  \fwrong &  \fwrong & \\
+\hline
+[Append, rename]$\to$ Any op~  &  \fwrong & &  \fwrong & & &  \fwrong & & & & & & & \fwrong &  \fwrong & & \\
+\hline
+\verysmalltt{O\_TRUNC} Append $\to$ Any op &  \fwrong & &  \fwrong & & & \fwrong & & & & & & & \fwrong &  \fwrong & & \\
+\hline
+Append $\to$ Append (same file)  &  \fwrong & &  \fwrong & & &  \fwrong & & & & & & & \fwrong &  \fwrong & & \\
+\hline
+Append $\to$ Any op &  \fwrong & &  \fwrong & & &  \fwrong &  \fwrong & & & \fwrong &  \fwrong & & \fwrong &  \fwrong & & \\
+\hline
+Dir op $\to$ Any op &  \fwrong & & & & & & & & &  \fwrong & & & \fwrong & & & \\
+\end{tabular}
+}
+\end{center}
+\vspace{-0.1in}
+\mycaption{tbl-ppresults}{Persistence Properties}{\footnotesize
+The table shows atomicity and ordering persistence properties that we
+empirically determined for different configurations of file systems. X $\to$ Y
+is persisted before Y. [X,Y] $\to$ Z indicates that Y follows
+X in program order, and both become durable before Z. A \fwrong\ indicates that
+we have a reproducible test case where the property fails in that file system.
+} 
+\setlength{\tabcolsep}{\tmpa}
+\end{table}

@@ -1,0 +1,70 @@
+\subsubsection{Evaluating New File-System Designs}
+\label{sec-twojournal}
+
+%   - Main point of the study (or the main question): Is ALC-Plot useful
+%   for evaluating the impact of hypothetical file systems on existing
+%	applications?
+%
+%	- A developer might want to implement a new file system that is a
+%	variant of an existing file system, but with more relaxed persistence
+%	properties in order to improve performance.   However, before
+%	implementing that variant and measuring performance, the developer
+%	first wants to verify that these new properties will not trigger
+%	violations in existing apps.
+%
+%	- As an example, consider a file system in which an fsync on a file or
+%	directly impacts only that file or directly; that is, other files are
+%	not forced out to disk.  Give intuition for why this might be correct.
+%	 Give intuition for why this will lead to better performance.
+%
+%	 - Short description of how you model this with ALC-Plot.
+%
+%	 - Short description of results: across all 14 apps, it causes no more
+%	 violations  than ext3-ordered.  (I don't think you need to show the
+%	 table -- it doesn't show anything interesting.)
+%
+%	 - Conclusion...
+
+%We now show how we can use \toolname\ to evaluate the impact of hypothetical
+%file systems on the consistency of existing applications.   
+
+File-system developers may wish to modify current file systems to improve
+performance. If the proposed modification changes the persistence properties of
+the file system, it will be useful to verify that the change doesn't break
+correctness of existing applications, before implementing the change and
+measuring performance. If ext4 developers could have done such verification
+before introducing delayed allocation, they could have prevented wide-spread
+data loss~\cite{URLmassivefsthread}.
+
+We now show how we can use \toolname\ to accomplish this. Consider a variant of
+ext3 (data journaling mode), \smalltt{ext3-fastfsync}, in which \fsyncSC\ on a file $A$
+persists only $A$; other dirty data and files are not affected (in ext3,
+\fsyncSC\ persists all dirty metadata and associated data). This modification
+improves \fsyncSC\ latency: \fsyncSC\ on file $A$ no longer has to wait for
+other data to become durable~\cite{LWN1}. Our intuition for why this is correct
+depends on the total ordering of ext4: all operations are already ordered; we
+hypothesize that persisting \fsyncSC\ calls one-by-one immediately, with other
+operations still ordered, will not affect application correctness. 
+
+We modeled \smalltt{ext3-fastfsync} in \toolname\ by introducing a slight change in the
+persistence model of ext3 (ordered mode). We changed the ordering dependencies
+of synced files and their data: previously, they were ordered after all
+previous operations; we changed them to depend on previously synced files and
+operations necessary for the file to exist (e.g., file creation, directory
+creation). The data writes of a synced file are not ordered among themselves.
+
+\toolname\ verified our hypothesis: \smalltt{ext3-fastfsync} does not have any
+ordering vulnerabilities on the 12 tested applications. The design was not
+meant to fix durability or multi-system-call atomicity vulnerabilities, so
+those vulnerabilities are still reported by \toolname.  We estimated the
+performance gain of \smalltt{ext3-fastfsync} using the following experiment: we
+first write 250 MB into file $A$, then append a byte to file $B$ and call
+\fsyncSC\ on $B$. When both files are on the same ext3-ordered file system,
+\fsyncSC\ takes about 4 seconds on a machine running Linux 3.8.  If the
+files belong to different ext3-ordered partitions on the same disk, however,
+the \fsyncSC\ takes only 40 ms. The first case is 100X slower because 250
+MB of data is ordered before the single byte that needs to be persistent.
+
+Evaluating the new design required less than 50 lines of code. We believe the
+ease of use offered by \toolname\ will allow it to be incorporated into the
+design process of new file systems. 

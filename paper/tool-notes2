@@ -1,0 +1,111 @@
+\subsection{Generating Crash States}
+\label{sec-diskstate}
+
+The user provides an application workload and an initial disk state. \toolname\
+runs the workload and uses \smalltt{strace} to obtain the system call trace. 
+
+\subsubsection{Micro-code}. 
+
+Since system calls can affect multiple items in a crash
+state (e.g., multi-block append to a file) we first decompose system calls into
+\textit{atomic} units called micro-operations. There are four micro-operations:
+\textit{write}, \textit{truncate}, \textit{create_directory_entry}, and
+\textit{delete_directory_entry}. Each micro-operation performs a modification
+on one logical entity: a file data block, a file inode, or a directory entry.
+The size of the file block can be modified.    
+
+There is no \textit{creat} micro-code: files can be directly written to,
+without the need for initialization. A file in its default state is of size
+zero.
+
+\textbf{write}. To generate crash states with lost application writes,  
+
+
+1 trunc(100)
+2 write(50 bytes at 100)
+3 trunc(200)
+
+if we only replay 2 and 3, we want the data to exist if there is a read after
+the trunc (200). Why?
+
+So that the write has no ordering dependency on a previous trunc - you can
+always perform a write; if we dont replay a trunc that sets size appropriately,
+that data could not be read.
+=> I don't know this is something we want to tell the reader. What does it
+change?
+- Is there something fundamental that we can or cannot do because we do this?
+
+Logical operation           Micro-code
+--------------------------------------
+append                      truncate
+                            write(zeroes)
+                            write(garbage)
+                            write(data)
+                            
+overwrite                   write(data)
+
+link                        create_dir_entry
+
+unlink                      delete_dir_entry
+                            truncate (if last link)
+
+rename                      create_dir_entry
+                            delete_dir_entry
+                            truncate (if last link)
+
+====================
+
+There are actually a number of concepts here.
+
+Sys calls -> crash states
+Policy:
+- each file system restricts the crash states possible on it
+- need a model to guide crash state selection
+- we want a general model, which captures superset
+- here is our general model
+
+Mechanism:
+- each system call has intermediate states
+    - could be because of breaking down writes
+    - could be be because of changing content in same location
+        - zeroed blocks, blocks over written, etc
+- logically decompose system calls into intermediate states
+- One logical operation to represent each intermediate state. 
+- One intermediate state to another via micro-operations
+- Add the table here (2 tables?)
+
+Exploring crash states
+- give a sense for how wide the space is
+- a priori not knowing which states are interesting
+- Things that are checked for:
+    - Breaking atomicity of a system call
+    - prefix (first N micro-operations)
+    - prefix-drop (first N micro-operations with 1 operation dropped)
+
+Exploring crash states (v2) (after talking to thanu):
+- give a sense for how wide the space is
+- a priori not knowing which states are interesting
+- checking all not feasible
+- We generate crash states so that we can check certain properties
+    - syscall prefix [inter sys call atomicity]
+    - syscall atomicity [all subsets]
+    - syscall re-ordering [prefix + omit]
+    
+Implementation Notes
+====================
+- To make it feel "real"
+- Lines of code
+    - 3500 lines of python code
+- Developed using?
+    - Python
+- Major implementation issues?
+    - Memory access trace
+    - Multi-thread/process?
+- optimizations can come here.
+
+Properties
+==========
+- Sound
+- User space tool
+- Can model a lot of different file systems, extendable to new file systems
+  

@@ -1,0 +1,25 @@
+\section{Example}
+\label{sec-example}
+
+Consider the sequence of operations shown in Figure~\ref{fig-git-example}. It
+represents part of the update protocol of Git~\cite{git}, a version control
+software. When changes are committed to the repository, Git appends to the
+\smalltt{branch.lock} file, a couple of logs, and then renames the
+\smalltt{branch.lock} file as the new \smalltt{branch} ref. We find that the
+appends need to be persisted before the rename; if not, any future commits to
+the repository fail. 
+
+Depending upon what file system Git is running on, appends may or may not be
+persisted before later renames. Figure~\ref{fig-git-example} lists the file
+systems on which Git is \textit{vulnerable} in the event of a crash.  A number
+of file-system features such as delayed allocation and journaling mode
+determine whether appends will be persisted before the rename.  
+
+We make two observations from this simple example. First, application update
+protocols often have subtle dependencies on the behavior of the underlying file
+system. These dependencies can cause the application to behave incorrectly in
+the event of a crash. Second, file-system behavior (that affects
+application-level consistency) varies widely depending upon the exact
+file-system configuration. It is challenging for an application developer who
+is not familiar with file-system internals to gauge whether an application will
+be correct upon a specific file system.
