@@ -38,6 +38,7 @@ So far we have only discusses how the Twilio clients connect to each other in th
 \caption{Automated call to a phone}
 \label{fig:autocall}
 \end{figure*} 
+
 \emph{TwiML:  } It is a markup language developed by Twilio. It contains a set of simple verbs that can be used by the Application Servers to direct the Twilio servers about the action that needs to be taken whenever a call or message is received to its number. Various kinds of verbs are supported as shown below which can be used to create interactive applications atop Twilio.
 \begin{itemize}
 \item Say - Read text to the caller 
@@ -96,6 +97,7 @@ We now present a high level protocol study of some of the important scenarios th
 \caption{Call from phone to a VoIP client}
 \label{fig:callfromphone}
 \end{figure*}
+
 \emph{\textbf{Automated calls to phones:} }
 The protocol diagram for this scenario is shown in  Figure~\ref{fig:autocall}. At first, a script (our python script) queues a call request specifying the phone number to which the call needs to be placed and an url indicating the location where the message located. The Twilio server acknowledges the request and places the call. Once the phone attends the call, the Twilio server uses the url in the call queue request to contact the Application server and request the content (in form of TwiML) that needs to be delivered to the phone. The Application server processes the request and sends a TwiML response in return indicating the action that needs to be taken. The Twilio server parses the TwiML response and finally streams the content to the phone.  
 
