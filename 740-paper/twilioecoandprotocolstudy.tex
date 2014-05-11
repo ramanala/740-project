@@ -9,6 +9,8 @@ In the middle layer, lie the $Application$ $servers$. These servers are installe
 
 In the top most layer, lie the $Clients$ which could be browser based clients or phone based clients. An important thing to note here is that these Clients are $not$ the direct customers of Twilio, instead they are the customers of the layer two located Twilio customers. For e.g. These clients could be the customers of company X who is providing VoIP service. These clients, can be free customers or paid customers of company X. Also, depending on the type of service that the layer two based Twilio customers wants to provide, it is possible that these layer three is non-existent.  The Clients when present, in order to use the services and communicate with each other need to register with the layer three Twilio servers. This is done using a capability token which is provided by the layer two Application Server. 
 
+So far we have only discusses how the Twilio clients connect to each other in the Twilio ecosystem. The Twilio clients and the Application servers can also interact with the external phones belonging to different carriers via the Twilio servers. Hence, these external phones also form a part of the Twilio ecosystem.
+
 \begin{figure}
 \centering
 %\begin{minipage}{.45\textwidth}
