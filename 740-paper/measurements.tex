@@ -12,7 +12,7 @@ We developed scripts that can queue automated calls to US phones and online brow
 \caption{\textbf{Calls queuing and dequeing.} {\footnotesize\textit{
 The figure shows the queuing and dequeuing rate for calls
 }}}
-\label{fig:sms}
+\label{fig:calls}
 \end{figure}
 
 Figure~\ref{fig:calls} shows the expected dequeue rate, observed dequeue rate and queue rate for calls. The horizontal axis shows increasing number of calls that we place to the phone and the vertical axis shows the queue or dequeue rate. As mentioned before \textit{Twilio} gives a guarantee to dequeue calls at the rate of 1 per second. This is shown by the flat line. We define the queue rate as the rate at which the client library can place calls into the \textit{Twilio} call queue. It is quite possible to achieve higher values of queue rate with high speed links. This value does not necessarily imply that the \textit{Twilio} server has a throttling mechanism for adding calls into the queue. The \textit{Dequeue rate} line shows the observed dequeue rate in our experiments. We notice that for a small number of calls such as 100, \textit{Twilio} dequeuing mechanism performs really well than expected. As the number of calls increases, the dequeue rate drop slightly below 1 but stays between 0.9 and 0.95. We believe that this behavior is completely acceptable if further increasing the number of calls to say few thousands. We intend to do this a future work. 
