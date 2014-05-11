@@ -46,7 +46,7 @@ For e.g. The TwiML snippet shown in Figure~\ref{fig:TwilML} will say Hello World
 \begin{figure*}[t!] 
 \centering
 %\begin{minipage}{.45\textwidth}
-  \includegraphics[width=\textwidth]{figs/auto.pdf}
+  \includegraphics[width=0.8\textwidth]{figs/auto.pdf}
 \caption{Automated call to a phone}
 \label{fig:autocall}
 \end{figure*} 
@@ -70,7 +70,7 @@ There are multiple scenarios possible with the help of Twilio Apis. It include:
 
 We developed a simple VoIP service called VoT atop Twilio and deployed it in OpenShift RedHat Cloud. The VoT server also hosts a website which is used to place voice calls. For making automated calls and sending automated messages we have developed some python scripts which directly calls into the Twilio APIs. For our study we extensively use traces collected at different places. This includes application level trace messages in VoT, logs in Twilio user portal, Twilio object store queries and wireshark traces in client machines.
 
-\subsection{Protocol Study}
+\subsection{High Level Protocol Study}
 
 We now present a high level protocol study of various scenarios that Twilio supports. 
 
@@ -82,7 +82,7 @@ The protocol diagram for this scenario is shown in  Figure~\ref{fig:autocall}. A
 \begin{figure*}[t!] 
 \centering
 %\begin{minipage}{.45\textwidth}
-  \includegraphics[width=\textwidth]{figs/twoclients.pdf}
+  \includegraphics[width=0.8\textwidth]{figs/twoclients.pdf}
 \caption{Call between two VoIP clients}
 \label{fig:2VoIPcall}
 \end{figure*}
@@ -95,8 +95,11 @@ The protocol diagram for this scenario is similar to that shown in Figure~\ref{f
 \begin{figure*}[t!] 
 \centering
 %\begin{minipage}{.45\textwidth}
-  \includegraphics[width=\textwidth]{figs/p2c.pdf}
+  \includegraphics[width=0.8\textwidth]{figs/p2c.pdf}
 \caption{Call from phone to a VoIP client}
 \label{fig:callfromphone}
 \end{figure*}
 The protocol diagram for this scenario is shown in Figure~\ref{fig:callfromphone}. Lets say, Mike be the VoIP client and a phone wish to call Mike. Mike will first request the Application server for capability token. Once the Application server delivers the token, Mike registers with the Twilio server. When the phone calls the Twilio number associated with Mike, the Twilio server triggers an incoming call to the Twilio number. The incoming call generates a post request on the voice URL present in the application container. This post request is directed to the Application server. The Application server parses the request, generates the appropriate TwiML content for the action that needs to be taken and delivers it to the Twilio server. The Twilio Server parses the TwiML and places a call to Mike. Finally, the phone is notified about this and the actual communication starts.
+
+\subsection{Packet Level Protocol Study}
+
