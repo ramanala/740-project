@@ -1,5 +1,11 @@
 \section{Abstract}
 \label{sec-abstract}
-Cloud communication service (CCS) with its simplicity and lower investment cost is becoming increasingly popular. But little is known about the internal operation of  CCS. With the aim of gaining insights into CCS, we study the protocols and architecture of a popular cloud communication service "\textit{Twilio}" using gray box techniques. 
+Cloud communication service (CCS) with its simplicity and lower investment cost is becoming increasingly popular. In contrast to its growing popularity, very little is known about the internals of CCS with respect to its architecture, protocol, etc. With the aim of gaining insights into CCS, we study 
+%the protocols and architecture of 
+a popular cloud communication service "\textit{Twilio}" using gray box techniques. 
  %For our study, we develop a simple VoIP service atop \textit{Twilio}. Using our service and logs collected at several places, 
-In our study, we  provide insights into how different components in Twilio interact with each other in various scenarios. We also measure some guarantees with respect to call and message dequeuing provided by Twilio. Our analysis reveals a number of interesting aspects about the Twilio ecosystem and have strong implications for developers who build applications on top of \textit{Twilio} APIs.
+In our study, we  provide insights into the Twilio ecosystem, its components, the interaction among components and the protocols used.
+%how different components in Twilio interact with each other in various scenarios. 
+We also measure some guarantees 
+%with respect to call and message dequeuing 
+promised by Twilio. Our analysis reveals a number of interesting aspects about the Twilio ecosystem and have strong implications for developers who build applications on top of \textit{Twilio} APIs.
