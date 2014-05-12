@@ -72,7 +72,8 @@ There are multiple scenarios that one can enable with the help of Twilio Apis. S
 \end{itemize}
 \item $Messages: $ Twilio message APIs can be used to send automated messages.
 \end{itemize}
-\emph{\textbf{Voice calls between VoIP clients:} }
+
+
 \begin{figure*}[t!] 
 \centering
 %\begin{minipage}{.45\textwidth}
@@ -100,7 +101,7 @@ We now present a high level protocol study of some of the important scenarios th
 \emph{\textbf{Automated calls to phones:} }
 The protocol diagram for this scenario is shown in  Figure~\ref{fig:autocall}. At first, a script (our python script) queues a call request specifying the phone number to which the call needs to be placed and an url indicating the location of the TwiML response. The Twilio server acknowledges the request and places the call. Once the phone attends the call, the Twilio server does a \textit{HTTP POST} or \textit{HTTP GET} to the url in the call queue request to fetch the TwiML response. In our experiments, we hosted these pre-recorded messages in our application servicer. The application server processes the request and sends a TwiML response in return. The Twilio server parses the TwiML response and finally streams the content to the phone.  
 
-\emph{\textbf{Voice calls from phone to VoIP clients:} }
+\emph{\textbf{Voice calls between VoIP clients:} }
 The protocol diagram for this scenario is shown in Figure~\ref{fig:2VoIPcall}. Let us say, Mike and Jenny are the two VoIP clients and Mike wishes to call Jenny. As shown in Section~\ref{subsec-twilioeco}, for Mike and Jenny to communicate they need to first register with the Twilio Server. Hence, Mike and Jenny at first request the Application server for capability tokens. Once the Application server delivers the tokens, Mike and Jenny register with the Twilio server using the tokens. Mike then queues a call to Jenny. An interesting thing to note here is that the Twilio server does not have information about what to do with the call. It need to communicate with the Application server to get this information. For this, it triggers an incoming call to the Twilio number to which Mike is linked to. As stated in Section~\ref{subsec-twilioeco}, every incoming call to a Twilio number generates a post request on the voice URL present in the application container linked to that number. This post request is directed to the Application server with query parameter as "Jenny". The Application server parses the request and generates the appropriate TwiML content indicating the action that needs to be taken. In this case, the application server would serve a response that contains a \textit{Dial} verb and the client for the \textit{Dial} verb would be "Jenny". The Twilio Server parses the TwiML and places a call to Jenny. Finally, Mike is notified about this and the voice communication starts. Note that the actual voice communication is $not$ peer-to-peer and is routed via Twilio servers.  
 
 \emph{\textbf{Voice calls from VoIP clients to phone:} }
