@@ -1,15 +1,15 @@
 \section{Twilio Overview}
 \label{sec-twilioecoandprotocolstudy}
-In what follows, we describe the Twilio Ecosystem, some of the possible scenarios using the Twilio APIs, the experimental setup that we used for our study, high level protocol study and then message level protocol study.
+In what follows, we describe the Twilio Ecosystem, some of the possible scenarios using the Twilio APIs, the experimental setup that we used for our study, high level protocol study and then packet level protocol study.
 \subsection{Twilio Ecosystem}
 \label{subsec-twilioeco}
 The Twilio ecosystem, as depicted in the Figure~\ref{fig:ecosystem} can be viewed as a layered architecture. In the bottom most layer lie the $Twilio$  $servers$. These servers lay the foundation of this ecosystem by exposing a set of data and voice communication APIs for sending and receiving voice calls and messages. 
 
-In the middle layer, lie the $Application$ $servers$. These servers are installed by Twilio customers with dedicated Twilio accounts. For e.g. These application servers might belong to some company X who want to provide VoIP service to its customer. Each Twilio account is linked to 1) one or more Twilio numbers, 2) an Account SID and 3) an Auth Token. A Twilio number is a ten digit phone number. Account SID is an unique identifier for a Twilio account. Auth Token is a token used by Twilio Servers to authenticate Application servers. The Application server uses the Account SID and Auth Token to access the Twilio APIs. The cost model for this second layer Application servers (or Twilio customers) is typically pay per message or pay per call. 
+In the middle layer, lie the $Application$ $servers$. These servers are installed by Twilio customers with dedicated Twilio accounts. For e.g. These application servers might belong to some company X that wants to provide VoIP service to its customer. Each Twilio account is linked to 1) one or more Twilio numbers, 2) an Account SID and 3) an Auth Token. A Twilio number is a ten digit phone number. Account SID is an unique identifier for a Twilio account. Auth Token is a token used by Twilio Servers to authenticate an account. The Application server uses the Account SID and Auth Token to access the Twilio APIs. The cost model for this second layer Application servers (or Twilio customers) is typically \textit{pay per message} or \textit{pay per call}. 
 
-In the top most layer, lie the $Clients$ which could be browser based clients or phone based clients. An important thing to note here is that these Clients are $not$ the direct customers of Twilio, instead they are the customers of the layer two located Twilio customers. For e.g. These clients could be the customers of company X who is providing VoIP service. These clients, can be free customers or paid customers of company X. Also, depending on the type of service that the layer two based Twilio customers wants to provide, it is possible that these layer three is non-existent.  The Clients when present, in order to use the services and communicate with each other need to register with the layer three Twilio servers. This is done using a capability token which is provided by the layer two Application Server. 
+In the top most layer, lie the $Clients$ which could be browser based clients or phone based clients. An important thing to note here is that these Clients are $not$ the direct customers of Twilio, instead they are the customers of the services that are built on top of Twilio. For e.g. These clients could be the customers of company X that is providing VoIP service. These clients, can be free customers or paid customers of company X. Also, depending on the type of service that the layer two based Twilio customers wants to provide, it is possible that these layer three is non-existent.  The Clients when present, in order to use the services and communicate with each other need to register with the layer three Twilio servers. This is done using a \textit{capability token} which is provided by the Application Server. 
 
-So far we have only discusses how the Twilio clients connect to each other in the Twilio ecosystem. The Twilio clients and the Application servers can also interact with the external phones belonging to different carriers via the Twilio servers. Hence, these external phones also form a part of the Twilio ecosystem.
+So far we have only discussed how the Twilio clients connect to each other in the Twilio ecosystem. The Twilio clients and the Application servers can also interact with the external phones belonging to different carriers via the Twilio servers. Hence, these external phones also form a part of the Twilio ecosystem.
 
 \begin{figure}
 \centering
@@ -23,7 +23,7 @@ So far we have only discusses how the Twilio clients connect to each other in th
 
 
 
-\emph{Application Container: } Each Twilio number is linked to an application container. The application container contains two URLs: $Voice URL$ and $Message URL$. These URLs are configurable and are usually configured by the Application server administrators (or Twilio customers). Whenever an incoming call or message for a Twilio number arrives, the Twilio server makes post request to these URLs. The content generated by these URLs direct Twilio servers to perform the needed actions on the incoming calls or messages. These contents are in form of a special markup language called $TwiML$ described in the subsequent section.
+\emph{Application Container: } Each Twilio number is linked to an application container. The application container contains two URLs: $Voice URL$ and $Message URL$. These URLs are configurable and are usually configured by the Application server administrators (or Twilio customers). Whenever an incoming call or message for a Twilio number arrives, the Twilio server makes post request to these URLs. The content generated by these URLs direct Twilio servers to perform the needed actions on the incoming calls or messages. These contents are in form of a special markup language called $TwiML$ described in the subsequent section. Additionally, Twilio appends the \textit{query parameters} that it obtains from the end-clients before making the requests to the application servers. 
  \begin{figure}
  \centering
  %\begin{minipage}{.45\textwidth}
@@ -54,23 +54,23 @@ So far we have only discusses how the Twilio clients connect to each other in th
 \item Reject - Decline an incoming call without being billed
 \end{itemize}
 
-For e.g. The TwiML snippet shown in Figure~\ref{fig:TwilML} will say Hello World (dictated by the verb "voice") to the caller in female voice (dictated by the verb "voice"). Our experience with Twiml suggests that it is very simple to use and powerful with respect to the diversity of verbs that it supports.
+For e.g. The TwiML snippet shown in Figure~\ref{fig:TwilML} will say Hello World (dictated by the verb "say") to the caller in female voice (dictated by the attribute "voice"). Our experience with TwiML suggests that it is very simple to use and powerful with respect to the diversity of verbs that it supports.
 
 
 
 \subsection{Scenarios}
 
-There are multiple scenarios possible with the help of Twilio Apis. It include:
+There are multiple scenarios that one can enable with the help of Twilio Apis. Some of them are:
 
 \begin{itemize}
-\item $Automated$ $calls: $ Twilio APIs can be used to place automated calls to phone numbers to deliver a pre-recorded message or a text message read in female or male message.
+\item $Automated$ $calls: $ Twilio APIs can be used to place automated calls to phone numbers to deliver a pre-recorded message.
 \item $Voice$ $calls: $ VoIP applications can be built atop Twilio voice APIs which can be used to place voice calls. There are three scenarios possible for VoIP applications:  
 \begin{itemize}
 \item Call between VoIP Clients
 \item Call from Phone to VoIP Client
 \item Call from VoIP Client to Phone
 \end{itemize}
-\item $Messages: $ Twilio message APIs can be used to send and receive messages.
+\item $Messages: $ Twilio message APIs can be used to send automated messages.
 \end{itemize}
 \emph{\textbf{Voice calls between VoIP clients:} }
 \begin{figure*}[t!] 
@@ -82,7 +82,7 @@ There are multiple scenarios possible with the help of Twilio Apis. It include:
 \end{figure*}
 \subsection{Experimental Setup}
 
-For our study, we developed a simple VoIP service (called VoT) atop Twilio and deployed it on OpenShift RedHat Cloud. The VoT server also hosts a website which is used to place voice calls by specifying a phone number or the registered names of VoIP clients. For making automated calls and sending automated messages we have developed python scripts using the Twilio client libraries which directly calls into the Twilio APIs. For our study, we extensively use traces collected at different places. This includes application level trace messages collected at our VoT server, logs in Twilio user portal, Twilio object store queries and wireshark traces collected at client machines.
+For our study, we developed a simple VoIP service (called VoT) atop Twilio and deployed it on OpenShift RedHat Cloud. The VoT server also hosts a simple web interface which can be used to place voice calls by specifying a phone number or the registered names of VoIP clients. For making automated calls and sending automated messages we have developed python scripts using the Twilio client libraries which directly calls into the Twilio APIs. For our study, we extensively use traces collected at different places. This includes application level trace messages collected at our VoT server, logs in Twilio user portal, Twilio object store queries and \textit{Wireshark} traces collected at client machines.
 
 \subsection{High Level Protocol Study}
 \label{subsec-protostudy}
@@ -99,7 +99,7 @@ We now present a high level protocol study of some of the important scenarios th
 \end{figure*}
 
 \emph{\textbf{Automated calls to phones:} }
-The protocol diagram for this scenario is shown in  Figure~\ref{fig:autocall}. At first, a script (our python script) queues a call request specifying the phone number to which the call needs to be placed and an url indicating the location where the message located. The Twilio server acknowledges the request and places the call. Once the phone attends the call, the Twilio server uses the url in the call queue request to contact the Application server and request the content (in form of TwiML) that needs to be delivered to the phone. The Application server processes the request and sends a TwiML response in return indicating the action that needs to be taken. The Twilio server parses the TwiML response and finally streams the content to the phone.  
+The protocol diagram for this scenario is shown in  Figure~\ref{fig:autocall}. At first, a script (our python script) queues a call request specifying the phone number to which the call needs to be placed and an url indicating the location of the TwiML response. The Twilio server acknowledges the request and places the call. Once the phone attends the call, the Twilio server does a \textit{HTTP POST} or \textit{HTTP GET} to the url in the call queue request to fetch the TwiML response. In our experiments, we hosted these pre-recorded messages in our application servicer. The application server processes the request and sends a TwiML response in return. The Twilio server parses the TwiML response and finally streams the content to the phone.  
 
 
 The protocol diagram for this scenario is shown in Figure~\ref{fig:2VoIPcall}. Lets say, Mike and Jenny are the two VoIP clients and Mike wishes to call Jenny. As shown in Section~\ref{subsec-twilioeco}, for Mike and Jenny to communicate they need to first register with the Twilio Server. Hence, Mike and Jenny at first request the Application server for capability tokens. Once the Application server delivers the tokens, Mike and Jenny register with the Twilio server using the tokens. Mike then queues a call to Jenny. An interesting thing to note here is that the Twilio server does not have information about what to do with the call. It communicates with the Application server to get this information. For this, it triggers an incoming call to the Twilio number to which Mike is linked to. As stated in Section~\ref{subsec-twilioeco}, every incoming call to a Twilio number generates a post request on the voice URL present in the application container linked to that number. This post request is directed to the Application server with query parameter as "Jenny". The Application server parses the request and generates the appropriate TwiML content indicating the action that needs to be taken. It then delivers the TwiML content to the Twilio server. The Twilio Server parses the TwiML and places a call to Jenny. Finally, Mike is notified about this and the voice communication starts. Note that the actual voice communication is $not$ peer-to-peer and is routed via the Twilio VoIP server.  
