@@ -12,6 +12,12 @@ Andrea~C. Arpaci-Dusseau and Remzi~H. Arpaci-Dusseau.
 \newblock In {\em Proceedings of the 18th ACM Symposium on Operating Systems
   Principles (SOSP '01)}, pages 43--56, Banff, Canada, October 2001.
 
+\bibitem{Barford:2001:CPA:844193.844200}
+Paul Barford and Mark Crovella.
+\newblock Critical path analysis of tcp transactions.
+\newblock {\em SIGCOMM Comput. Commun. Rev.}, 31(2 supplement):80--102, April
+  2001.
+
 \bibitem{Baset04ananalysis}
 Salman~A. Baset and Henning Schulzrinne.
 \newblock An analysis of the skype peer-to-peer internet telephony protocol.
